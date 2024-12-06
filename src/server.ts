@@ -1,9 +1,11 @@
-console.log("EXUCUTED");
+/* Architectural pattern: MVC, DI, MVP. Backend ning suyagi
+    hisoblanib backend dagi malumotlar oqimini tartibga 
+    soladigan  bir vosita ya'ni arxitekturasi
+1. MVC => MODEL VIEW CONTROLLER
+2. DI  => DEPENDECY INJECTION
+3. MVP => MINIMUM VIABLE PRODUCT
+*/
 
-import moment from "moment";
-
-const currentTime = moment().format("YYYY MM DD");
-console.log(currentTime);
-
-const person: string = "Eden";
-const count: number = 100;
+/* Design patter: Middleware, Decorate.  Malum bir bolaklarini
+    yechishda hisoblanadigan qismi.
+*/

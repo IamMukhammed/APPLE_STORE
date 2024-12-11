@@ -1,10 +1,6 @@
-console.log("Hello World");
-
-
-function getPositive(arr: number[]): string {
-    return arr
-        .filter((num: number) => num > 0) // Faqat ijobiy sonlarni tanlab olish
-        .join(''); // Tanlangan sonlarni birlashtirish
+function getDigits(input: string): string {
+    return input.replace(/\D/g, ""); // \D matndagi raqam bo'lmagan belgilarni ifodalaydi
 }
 
-console.log(getPositive([1, -4, 2])); // "12"
+// Misol:
+console.log(getDigits("m14i1t")); // "141"

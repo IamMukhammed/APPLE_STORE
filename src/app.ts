@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import router from "./router";
 
 // 1 - Entrance
 const app = express();
@@ -15,6 +16,6 @@ app.set('views', path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // 4 - Routers
+app.use('/', router);  // Middleware Design Pattern 
 
-
-export default app;  // module.exports mantigi bn birxil
+export default app;    // module.exports mantigi bn birxil

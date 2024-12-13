@@ -1,19 +1,19 @@
-import mongoose, {Schema} from "mongoose";
-import { memberStatus, memberType } from "../libs/enums/member.enum";
+import mongoose, { Schema } from "mongoose";
+import { MemberStatus, MemberType } from "../libs/enums/member.enum";
 
 // Schema first & Code first & Code based
 // Scheme based
 const memberSchema = new Schema({
     memberType: {
         type: String,
-        enum: memberType,
-        default: memberType.USER
+        enum: MemberType,
+        default: MemberType.USER
     },
 
     memberStatus: {
         type: String,
-        enum: memberStatus,
-        default: memberStatus.ACTIVE
+        enum: MemberStatus,
+        default: MemberStatus.ACTIVE
     },
 
     memberNick: {

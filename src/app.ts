@@ -22,7 +22,8 @@ app.set("view engine", "ejs");
 
 // 4 - Routers
 // BSSR => Backend Server Site Rendering //  SSR => Server Site Rendering // EJS
-app.use("/admin", routerAdmin);  // SSR: EJS
-app.use("/", router);  // Middleware Design Pattern // SPA: React
 
-export default app;    // module.exports mantigi bn birxil
+app.use("/admin", routerAdmin);  // SSR: EJS
+app.use("/", router);            // Middleware Design Pattern // SPA: React
+
+export default app;              // module.exports mantigi bn birxil

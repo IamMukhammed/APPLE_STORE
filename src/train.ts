@@ -5,5 +5,14 @@
     class => PASCAL                         :   MemberService
     folder => KEBAB                         :   
     css => SNAKE                            :   button_style
+- Error handling => loyihamizdagi sodir bolyatgan turli hil errorlarni handling qilish
+*/
 
+// API => Aplication Programming Interface 
+
+/* 
+Traditional API
+Rest API
+GraphQL API
+...
 */

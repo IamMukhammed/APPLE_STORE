@@ -1,6 +1,9 @@
-function getDigits(input: string): string {
-    return input.replace(/\D/g, ""); // \D matndagi raqam bo'lmagan belgilarni ifodalaydi
-}
+/* Project Satndarts:
+- Logging standarts,
+- Naming standarts 
+    function, method, variable => Camel case:   goHome
+    class => PASCAL                         :   MemberService
+    folder => KEBAB                         :   
+    css => SNAKE                            :   button_style
 
-// Misol:
-console.log(getDigits("m14i1t")); // "141"
+*/

@@ -17,7 +17,7 @@ app.use(morgan(MORGAN_FORMAT)); // Midleware design pattern  // lips ni ichidan 
 // 2 - Sessions
 
 // 3 - Views
-app.set('views', path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // 4 - Routers

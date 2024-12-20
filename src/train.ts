@@ -17,19 +17,7 @@ GraphQL API
 ...
 */
 
-
-// TASK - J
-
-function findLongestWord(sentence: string): string {
-    const words = sentence.match(/\w+/g);
-    if (!words) return ""; 
-    let longestWord = "";
-    for (const word of words) {
-        if (word.length > longestWord.length) {
-            longestWord = word;
-        }
-    }
-    return longestWord;
-}
-
-console.log(findLongestWord("I came from Uzbekistan!"));
+/*
+TFD => Traditional Frontend Development => BSSR (Admin)     => EJS
+MFD => Modern Frontend Development      => SPA (Users' app) => REACT
+*/

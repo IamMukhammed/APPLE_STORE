@@ -83,5 +83,18 @@ restaurantController.processLogin = async (
     }
 };
 
+restaurantController.checkAuthSession = async (
+    req: AdminRequest,
+    res: Response
+) => {
+    try {
+        console.log("checkAuthSessio");
+        if(req.session?.member) res.send(`Hi, ${req.session.member.memberNick}`);
+        else res.send(Message.NOT_AUTHENTICATED);
+    } catch (err) {
+        console.log("Error, chechAuthSession:", err);
+        res.send(err);
+    }
+};
 
 export default restaurantController;

@@ -15,6 +15,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
         res.render("home");         // send | render | redirect | json
     } catch (err) {
         console.log("Error, goHome:", err);
+        res.redirect("/admin");
     }
 };
 
@@ -54,10 +55,9 @@ restaurantController.processSignup = async (
 
         req.session.member = result;
         req.session.save(function () {
-            res.send(result);
+            res.redirect("/admin/login");
         });
 
-        res.send(result);
     } catch (err) {
         console.log("Error, processSignup:", err);
         const message = 
@@ -76,15 +76,15 @@ restaurantController.processLogin = async (
         console.log("processLogin");
         console.log("body:", req.body);
         const input: LoginInput = req.body;
+        const memberService = new MemberService();
         const result = await memberService.login(input);
         // TODO: Sessions authentication
 
         req.session.member = result;
         req.session.save(function () {
-            res.send(result);
+            res.redirect("/admin/product/all");
         });
-
-        res.send(result);
+        
     } catch (err) {
         console.log("Error, processLogin:", err);
         const message = 

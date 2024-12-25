@@ -4,6 +4,14 @@ import router from "./router";
 import routerAdmin from "./router-admin"
 import morgan from "morgan";
 import { MORGAN_FORMAT } from "./libs/config";
+import session from "express-session";
+import ConnectMongoDB from "connect-mongodb-session";
+
+const MongoDBStore = ConnectMongoDB(session);
+const store = new MongoDBStore({
+    uri: String(process.env.MONGO_URL),
+    collection: 'mySessions',
+});
 
 // 1 - Entrance
 const app = express();
@@ -15,6 +23,17 @@ app.use(morgan(MORGAN_FORMAT)); // Midleware design pattern  // lips ni ichidan 
 // app.use(morgan(`:method :url :response-time [:status]`));
 
 // 2 - Sessions
+app.use(
+    session({
+        secret: String(process.env.SESSION_SECRET),
+        cookie: {
+            maxAge: 1000 * 3600 * 3, // 3h
+        },
+        store: store,
+        resave: true,
+        saveUninitialized: true
+    })
+);
 
 // 3 - Views
 app.set("views", path.join(__dirname, "views"));

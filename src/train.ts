@@ -21,3 +21,26 @@ GraphQL API
 TFD => Traditional Frontend Development => BSSR (Admin)     => EJS
 MFD => Modern Frontend Development      => SPA (Users' app) => REACT
 */
+
+/*
+cookies
+    Request join
+    Self destroy
+*/
+
+
+function countVowels(str: string): number {
+    const vowels: string[] = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+  
+    let count: number = 0;
+  
+    for (let char of str) {
+      if (vowels.includes(char)) {
+        count++;
+      }
+    }
+  
+    return count;
+  }
+  
+  console.log(countVowels("string")); // 1

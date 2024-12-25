@@ -9,6 +9,6 @@ import memberController from "./controllers/member.controller";
 
 router.post("/login", memberController.login);
 router.post("/signup", memberController.signup);
-router.post("/products", memberController.products);
+// router.post("/products", memberController.products);
 
 export default router;

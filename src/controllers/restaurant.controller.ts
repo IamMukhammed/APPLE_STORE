@@ -1,8 +1,10 @@
-import { T, test } from "../libs/types/common";
-import express, {Request, Response} from "express";
+import {Request, Response} from "express";
+import {T} from "../libs/types/common";
 import MemberService from "../models/Member.service";
-import { LoginInput, MemberInput } from "../libs/types/member";
+import { AdminRequest, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
+import { LoginInput } from "../libs/types/member";
+import Errors, { Message } from "../libs/Error";
 
 const memberService = new MemberService();
 
@@ -34,7 +36,10 @@ restaurantController.getLogin = (req: Request, res: Response) => {
     }
 };
 
-restaurantController.processSignup = async (req: Request, res: Response) => {
+restaurantController.processSignup = async (
+    req: AdminRequest,
+    res: Response
+) => {
     try {
         console.log("processSignup");
         console.log("body:", req.body);
@@ -43,6 +48,11 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
         const result = await memberService.signup(newMember);
         // TODO: Sessions authentication
 
+        req.session.member = result;
+        req.session.save(function () {
+            res.send(result);
+        });
+
         res.send(result);
     } catch (err) {
         console.log("Error, processSignup:", err);
@@ -50,13 +60,21 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
     }
 };
 
-restaurantController.processLogin = async (req: Request, res: Response) => {
+restaurantController.processLogin = async (
+    req: AdminRequest,
+    res: Response
+) => {
     try {
         console.log("processLogin");
         console.log("body:", req.body);
         const input: LoginInput = req.body;
         const result = await memberService.login(input);
         // TODO: Sessions authentication
+
+        req.session.member = result;
+        req.session.save(function () {
+            res.send(result);
+        });
 
         res.send(result);
     } catch (err) {

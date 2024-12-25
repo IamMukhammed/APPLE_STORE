@@ -10,8 +10,12 @@ class MemberService {
     constructor() {
         this.memberModel = MemberModel;
     }
-
+    
     /** SPA */
+
+    
+
+    /** SSR */
 
     public async signup(input: MemberInput): Promise<Member> {
         const salt = await bcrypt.genSalt(); // hashing qilishni amalga oshirish  salt qilish yani tuzlash orqali
@@ -51,7 +55,6 @@ class MemberService {
 }
 
 
-/** SSR */
 
 
 export default MemberService;

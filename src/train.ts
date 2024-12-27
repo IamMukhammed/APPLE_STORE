@@ -17,9 +17,10 @@ GraphQL API
 ...
 */
 
-/*
-TFD => Traditional Frontend Development => BSSR (Admin)     => EJS
-MFD => Modern Frontend Development      => SPA (Users' app) => REACT
+/* 
+Frontend Development:
+    TFD => Traditional Frontend Development => BSSR (Admin)     => EJS
+    MFD => Modern Frontend Development      => SPA (Users' app) => REACT
 */
 
 /*
@@ -28,19 +29,22 @@ cookies
     Self destroy
 */
 
+/*
+ Validation:
+    Frontend validation
+    Pipe validation
+    Backend validation
+    Database validation
+*/
 
-function countVowels(str: string): number {
-    const vowels: string[] = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
-  
-    let count: number = 0;
-  
-    for (let char of str) {
-      if (vowels.includes(char)) {
-        count++;
-      }
-    }
-  
-    return count;
-  }
-  
-  console.log(countVowels("string")); // 1
+
+function reverseSentence(sentence: string) {
+  return sentence
+      .split(' ')            
+      .map(word =>           
+          word.split('').reverse().join('')
+      )
+      .join(' ');            
+}
+
+console.log(reverseSentence("we like coding!"));

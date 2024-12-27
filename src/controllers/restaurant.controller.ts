@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {T} from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { AdminRequest, MemberInput } from "../libs/types/member";
@@ -84,13 +84,13 @@ restaurantController.processLogin = async (
         req.session.save(function () {
             res.redirect("/admin/product/all");
         });
-        
+
     } catch (err) {
         console.log("Error, processLogin:", err);
         const message = 
             err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
         res.send(
-            `<script> alert("${message}"): window.location.replace('admin/login') </script>`
+            `<script> alert("${message}"); window.location.replace('admin/login') </script>`
         );
     }
 };
@@ -122,6 +122,22 @@ restaurantController.checkAuthSession = async (
     } catch (err) {
         console.log("Error, chechAuthSession:", err);
         res.send(err);
+    }
+};
+
+restaurantController.verifyRestaurant = (
+    req: AdminRequest,
+    res: Response,
+    next: NextFunction
+) => {
+    if(req.session?.member?.memberType === MemberType.RESTAURANT) {
+            req.member = req.session.member;
+            next();
+    } else {
+        const message = Message.NOT_AUTHENTICATED;
+        res.send(
+            `<script> alert("${message}"); window.location.replace('/admin/login'); </script>`
+        );
     }
 };
 

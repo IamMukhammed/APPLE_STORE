@@ -43,7 +43,9 @@ productController.createNewProduct = async (req: AdminRequest, res: Response) =>
         res.send(
             `<script> alert("Successful creation"); window.location.replace('/admin/product/all'); </script>`
         );
+
         console.log("createNewProduct");
+        
         res.send("UPLOADING IS DONE !");
     } catch (err) {
         console.log("Error, createNewProduct:", err);

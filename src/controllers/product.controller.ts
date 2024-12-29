@@ -34,13 +34,15 @@ productController.createNewProduct = async (req: AdminRequest, res: Response) =>
         
         const data: ProductInput = req.body;
         data.productImages = req.files?.map(ele => {
-            return ele.path;
+            return ele.path.replace(/\\/g, "/");
         });
 
         await productService.createNewProduct(data);
         res.send(
             `<script> alert("Successful creation"); window.location.replace('/admin/product/all'); </script>`
         );
+        console.log("createNewProduct");
+        res.send("UPLOADING IS DONE !");
     } catch (err) {
         console.log("Error, createNewProduct:", err);
         const message = err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
@@ -53,6 +55,15 @@ productController.createNewProduct = async (req: AdminRequest, res: Response) =>
 productController.updateChosenProduct = async (req: Request, res: Response) => {
     try {
         console.log("updateChosenProduct");
+        const id = req.params.id;
+
+        const result = await productService.updateChosenProduct(id, req.body);
+        
+        // console.log("id:", id);
+        // res.send("UPDATING IS DONE !");
+        // res.send(result);
+        // res.status(200);
+        res.status(HttpCode.OK).json({ data: result });
     } catch (err) {
         console.log("Error, updateChosenProduct:", err);
         if (err instanceof Errors) res.status(err.code).json(err);

@@ -37,14 +37,14 @@ cookies
     Database validation
 */
 
-
-function reverseSentence(sentence: string) {
-  return sentence
-      .split(' ')            
-      .map(word =>           
-          word.split('').reverse().join('')
-      )
-      .join(' ');            
-}
-
-console.log(reverseSentence("we like coding!"));
+function getSquareNumbers(numbers: number[]):
+    { number: number; square: number }[] {
+    return numbers.map((number: number) => ({
+      number: number,
+      square: number * number
+    }));
+  }
+  
+  const result = getSquareNumbers([1, 2, 3]);
+  console.log(result);
+  

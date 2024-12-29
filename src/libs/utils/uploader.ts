@@ -20,6 +20,7 @@ const makeUploader = (address: string) => {
     const storage = getTargetImageStorage(address);
     return multer({ storage: storage });
 };
+
 export default makeUploader;
 
 /*

@@ -52,7 +52,7 @@ restaurantController.processSignup = async (
         if(!file) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
         const newMember: MemberInput = req.body;
-        newMember.memberImage = file?.path.replace(/\\/g, "/");
+        newMember.memberImage = file?.path //.replace(/\\/g, "/");
         newMember.memberType = MemberType.RESTAURANT;
         const result = await memberService.signup(newMember);
         // TODO: Sessions authentication
@@ -114,6 +114,30 @@ restaurantController.logout = async (
     }
 };
 
+restaurantController.getUsers = async ( req: Request, res: Response ) => {
+    try {
+        console.log("getUsers");
+        const result = await memberService.getUsers();
+        console.log("result:", result);
+
+        res.render("users", { users: result });
+    } catch (err) {
+        console.log("Error, getUsers:", err);
+        res.redirect("/admin/login");
+    }
+};
+
+restaurantController.updateChosenUser = (req: Request, res: Response) => {
+    try {
+        console.log("updateChosenUser");
+        // res.render("updateChosenUser");
+    } catch (err) {
+        console.log("Error, updateChosenUser:", err);
+        res.redirect("/admin");
+
+    }
+};
+
 restaurantController.checkAuthSession = async (
     req: AdminRequest,
     res: Response
@@ -144,5 +168,7 @@ restaurantController.verifyRestaurant = (
         );
     }
 };
+
+
 
 export default restaurantController;

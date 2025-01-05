@@ -11,7 +11,7 @@
 // API => Aplication Programming Interface 
 
 /* 
-Traditional API
+Traditional API ( form POST )
 Rest API
 GraphQL API
 ...
@@ -37,10 +37,14 @@ cookies
     Database validation
 */
 
-function palindromCheck(word: string) {
-    const reversedWord = word.split('').reverse().join('');
-    return word === reversedWord;
+function calculateSumOfNumbers(array: any) {
+    return array.reduce((sum: any, item: any) => {
+        if (typeof item === "number") {
+            return sum + item;
+        }
+        return sum;
+    }, 0);
 }
 
-console.log(palindromCheck("dad"));
-console.log(palindromCheck("son"));
+const result = calculateSumOfNumbers([10, "10", {son: 10}, true, 35]);
+console.log(result);

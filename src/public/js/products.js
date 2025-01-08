@@ -31,7 +31,9 @@ $(function() {
         console.log("productStatus:", productStatus);
 
         try {
-            const response = await axios.post(`/admin/product/${id}`, {productStatus: productStatus});
+            const response = await axios.post(`/admin/product/${id}`,
+                {productStatus: productStatus
+            });
             console.log("response:", response);
             const result = response.data;
             if (result.data) {

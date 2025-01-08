@@ -37,14 +37,9 @@ cookies
     Database validation
 */
 
-function calculateSumOfNumbers(array: any) {
-    return array.reduce((sum: any, item: any) => {
-        if (typeof item === "number") {
-            return sum + item;
-        }
-        return sum;
-    }, 0);
-}
-
-const result = calculateSumOfNumbers([10, "10", {son: 10}, true, 35]);
-console.log(result);
+function objectToArray(obj: Record<string, any>): [string, any][] {
+    return Object.entries(obj);
+  }
+  
+  const result = objectToArray({ a: 10, b: 20 });
+  console.log(result);

@@ -28,15 +28,16 @@ productController.getAllProducts = async (req: Request, res: Response) => {
 
 productController.createNewProduct = async (req: AdminRequest, res: Response) => {
     try {
-        // console.log("createNewProduct");
+        console.log("createNewProduct");
         console.log("req.files:", req.files);
+        console.log("req.body:", req.body);
 
         if (!req.files?.length)
             throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
         
         const data: ProductInput = req.body;
         data.productImages = req.files?.map(ele => {
-            return ele.path; // .replace(/\\/g, "/");
+            return ele.path.replace(/\\/g, "/");
         });
 
         await productService.createNewProduct(data);
@@ -63,10 +64,6 @@ productController.updateChosenProduct = async (req: Request, res: Response) => {
 
         const result = await productService.updateChosenProduct(id, req.body);
         
-        // console.log("id:", id);
-        // res.send("UPDATING IS DONE !");
-        // res.send(result);
-        // res.status(200);
         res.status(HttpCode.OK).json({ data: result });
     } catch (err) {
         console.log("Error, updateChosenProduct:", err);

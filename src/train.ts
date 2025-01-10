@@ -37,9 +37,10 @@ cookies
     Database validation
 */
 
-function objectToArray(obj: Record<string, any>): [string, any][] {
-    return Object.entries(obj);
-  }
-  
-  const result = objectToArray({ a: 10, b: 20 });
-  console.log(result);
+function hasProperty<T extends object>(obj: T, prop: keyof any): prop is keyof T {
+    return prop in obj;
+}
+
+// Misollar:
+console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
+console.log(hasProperty({ name: "BMW", model: "M3" }, "year"));  // false

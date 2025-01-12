@@ -37,10 +37,8 @@ cookies
     Database validation
 */
 
-function hasProperty<T extends object>(obj: T, prop: keyof any): prop is keyof T {
-    return prop in obj;
-}
-
-// Misollar:
-console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
-console.log(hasProperty({ name: "BMW", model: "M3" }, "year"));  // false
+function calculate(expression: string): number {
+    return eval(expression) as number;
+  }
+  
+  console.log(calculate("1 + 3"));

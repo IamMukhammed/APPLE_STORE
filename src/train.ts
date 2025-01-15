@@ -37,8 +37,12 @@ cookies
     Database validation
 */
 
-function calculate(expression: string): number {
-    return eval(expression) as number;
-  }
-  
-  console.log(calculate("1 + 3"));
+function missingNumber(nums: number[]): number {
+    const n: number = nums.length;
+    const expectedSum: number = (n * (n + 1)) / 2;
+    const actualSum: number = nums.reduce((sum, num) => sum + num, 0);
+    return expectedSum - actualSum;
+}
+
+const result: number = missingNumber([3, 0, 1]);
+console.log(result);

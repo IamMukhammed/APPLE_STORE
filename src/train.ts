@@ -37,12 +37,8 @@ cookies
     Database validation
 */
 
-function missingNumber(nums: number[]): number {
-    const n: number = nums.length;
-    const expectedSum: number = (n * (n + 1)) / 2;
-    const actualSum: number = nums.reduce((sum, num) => sum + num, 0);
-    return expectedSum - actualSum;
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+    return [...arr1, ...arr2].sort((a, b) => a - b);
 }
 
-const result: number = missingNumber([3, 0, 1]);
-console.log(result);
+console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]));

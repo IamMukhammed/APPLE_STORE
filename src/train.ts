@@ -37,9 +37,18 @@ cookies
     Database validation
 */
 
-function sumOdds(n: number): number {
-    return Math.floor(n / 2);
+function countChars(str: string): Record<string, number> {
+    const result: Record<string, number> = {};
+
+    for (const char of str) {
+        if (result[char]) {
+            result[char]++;
+        } else {
+            result[char] = 1;
+        }
+    }
+
+    return result;
 }
 
-console.log(sumOdds(9)); 
-console.log(sumOdds(11));
+console.log(countChars("hello"));

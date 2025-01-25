@@ -1,3 +1,4 @@
+export const AUTH_TIMER = 24;
 export const MORGAN_FORMAT = `:method :url :res[content-length] - :response-time ms [:status] \n`;
 
 import mongoose from "mongoose";

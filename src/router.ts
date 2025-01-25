@@ -7,8 +7,16 @@ import memberController from "./controllers/member.controller";
 // router.get('/login', memberController.getLogin);
 // router.get('/singup', memberController.getSignup);
 
-router.post("/login", memberController.login);
-router.post("/signup", memberController.signup);
+/* MEMBERS */
+
+router.post("/member/login", memberController.login);
+router.post("/member/signup", memberController.signup);
+router.get("/member/detail", memberController.verifyAuth);
+
+/* PRODUCTS */
+
 // router.post("/products", memberController.products);
+
+/* ORDERS */
 
 export default router;

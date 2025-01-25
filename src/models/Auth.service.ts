@@ -6,13 +6,18 @@ import { HttpCode } from "../libs/Error";
 import { Message } from "../libs/Error";
 
 class AuthService {
-    constructor() {
+    private readonly secretToken;
 
+    constructor() {
+        this.secretToken = process.env.SECRET_TOKEN as string;
     }
     public async createToken(payload: Member) {
         return new Promise((resolve, reject) => {
             const duration = `${AUTH_TIMER}h`;
-            jwt.sign(payload, process.env.SECRET_TOKEN as string, {
+            jwt.sign(
+                payload, 
+                process.env.SECRET_TOKEN as string, 
+            {
                 expiresIn: duration
             }, (err, token) => {
                 if(err) reject(new Errors(HttpCode.UNAUTHORIZED, Message.TOKEN_CREATION_FAILED)
@@ -21,6 +26,15 @@ class AuthService {
                 }
             );   
         });
+    }
+    
+    public async checkAuth(token: string): Promise<Member> {
+        const result = (await jwt.verify(
+            token, 
+            this.secretToken
+        )) as Member;
+        console.log(`--- [AUTH] memberNick: ${result.memberNick} ---`);
+        return result;
     }
 }
 

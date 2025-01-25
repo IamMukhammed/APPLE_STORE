@@ -1,7 +1,7 @@
 import MemberService from "../models/Member.service";
 import { T, test } from "../libs/types/common";
-import express, {Request, response, Response} from "express";
-import { LoginInput, Member, MemberInput } from "../libs/types/member";
+import express, {NextFunction, Request, response, Response} from "express";
+import { ExtendedRequest, LoginInput, Member, MemberInput } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Error";
 import AuthService from "../models/Auth.service";
 import { AUTH_TIMER } from "../libs/config";
@@ -12,6 +12,8 @@ const authService = new AuthService();
 // React loihamiz uchun
 
 const memberController: T = {};
+
+/* SIGN UP page */
 
 memberController.signup = async (req: Request, res: Response) => {
     try {
@@ -37,6 +39,8 @@ memberController.signup = async (req: Request, res: Response) => {
     }
 };
 
+/* LOG IN page */
+
 memberController.login = async (req: Request, res: Response) => {
     try {
         console.log("login");
@@ -57,26 +61,60 @@ memberController.login = async (req: Request, res: Response) => {
         console.log("Error, login:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standard.code).json(Errors.standard);
-        // res.json({ });
     }
 };
 
-memberController.verifyAuth = async (req: Request, res: Response) => {
-    try {
-        let member = null;
-        const token = req.cookies["accessToken"];
-        if (token) member = await authService.checkAuth(token);
+/* LOGOUT page */
 
-        if (!member) 
+memberController.logout = ( req: ExtendedRequest, res: Response ) => {
+    try {
+
+        console.log("logout");
+        
+        res.cookie("accessToken", null, { maxAge: 0, httpOnly: true });
+        res.status(HttpCode.OK).json({ logout: true });
+    } catch (err) {
+        console.log("Error, login:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standard.code).json(Errors.standard);
+    }
+}
+
+/* Midleware mantiqlarimiz hisolanadi */
+
+memberController.verifyAuth = async (
+    req: ExtendedRequest, 
+    res: Response, 
+    next: NextFunction
+) => {
+    try {
+        const token = req.cookies["accessToken"];
+        if (token) req.member = await authService.checkAuth(token);
+
+        if (!req.member) 
             throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
 
-        console.log("member:", member);
-        res.status(HttpCode.OK).json({ member: member });
-
+        next();
     } catch (err) {
         console.log("Error, verifyAuth:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standard.code).json(Errors.standard);
+    }
+};
+
+memberController.retrieveAuth = async (
+    req: ExtendedRequest, 
+    res: Response, 
+    next: NextFunction
+) => {
+    try {
+        const token = req.cookies["accessToken"];
+        if (token) req.member = await authService.checkAuth(token);
+        
+        next();
+    } catch (err) {
+        console.log("Error, retrieveAuth:", err);
+        next();
     }
 };
 

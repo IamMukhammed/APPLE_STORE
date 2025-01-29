@@ -37,14 +37,19 @@ cookies
     Database validation
 */
 
-function chunkArray<T>(arr: T[], size: number): T[][] {
-    const result: T[][] = [];
+function countOccurrences(obj: Record<string, any>, key: string): number {
+    let count = 0;
 
-    for (let i = 0; i < arr.length; i += size) {
-        result.push(arr.slice(i, i + size));
+    for (const k in obj) {
+        if (k === key) count++; // Agar kalit mos kelsa, sanash
+        if (typeof obj[k] === "object" && obj[k] !== null) {
+            count += countOccurrences(obj[k], key); // Rekursiya: ichki obyekt ichida qidaramiz
+        }
     }
 
-    return result;
+    return count;
 }
 
-console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3));
+// 🔥 Test qilamiz
+const obj = { model: 'Bugatti', steer: { model: 'HANKOOK', size: 30 } };
+console.log(countOccurrences(obj, "model")); // Output: 2

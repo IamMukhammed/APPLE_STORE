@@ -13,6 +13,24 @@ const authService = new AuthService();
 
 const memberController: T = {};
 
+
+/* RESTAURANT page */
+
+memberController.getRestaurant = async (req: Request, res: Response) => {
+    try {
+        console.log("getRestaurant");
+
+        const result = await memberService.getRestaurant();
+
+        res.status(HttpCode.OK).json(result);
+    } catch (err) {
+        console.log("Error, getRestaurant:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standard.code).json(Errors.standard);
+    }
+};
+
+
 /* SIGN UP page */
 
 memberController.signup = async (req: Request, res: Response) => {
@@ -35,7 +53,6 @@ memberController.signup = async (req: Request, res: Response) => {
         console.log("Error, signup:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standard.code).json(Errors.standard);
-        // res.json({ });
     }
 };
 

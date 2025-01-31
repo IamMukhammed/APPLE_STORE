@@ -30,7 +30,6 @@ productController.getProducts = async (req: Request, res: Response) => {
         console.log("result=> ", result);
 
         res.status(HttpCode.OK).json(result);
-
     } catch (err) {
         console.log("Error, getProducts:", err);
         if (err instanceof Errors) res.status(err.code).json(err);

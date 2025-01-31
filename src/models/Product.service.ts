@@ -34,23 +34,23 @@ class ProductService {
         }
 
         const sort: T = 
-        inquiry.order === "productPrice"    
-            ? { [inquiry.order]: 1 }  // eng arzonidan yuqoriga qarab (asc)
-            : { [inquiry.order]: -1 }; // "createdAt qilsak" eng oxirgi qo'shilganidan pastga qarab (desc)
+            inquiry.order === "productPrice"    
+                ? { [inquiry.order]: 1 }  // eng arzonidan yuqoriga qarab (asc)
+                : { [inquiry.order]: -1 }; // "createdAt qilsak" eng oxirgi qo'shilganidan pastga qarab (desc)
 
         const result = await this.productModel.aggregate([
             // pipe lines
             { $match: match },
             { $sort: sort },
-            { $skip: (inquiry.page * 1 -1) * inquiry.limit }, // 0 xechqanday malumotni o'tkazib yuborma
-            { $limit: inquiry.limit * 1 }, // 3 ta doc.
+            { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, // 0 xechqanday malumotni o'tkazib yuborma
+            { $limit: inquiry.limit }, // 3 ta doc.
         ])
         .exec();
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
         return result;
     }
-    
+
     public async getProduct( memberId: ObjectId | null, id: string ): Promise<Product> {
         const productId = shapeIntoMongooseObjectId(id);
         

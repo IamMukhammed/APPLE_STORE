@@ -37,19 +37,8 @@ cookies
     Database validation
 */
 
-function countOccurrences(obj: Record<string, any>, key: string): number {
-    let count = 0;
-
-    for (const k in obj) {
-        if (k === key) count++; // Agar kalit mos kelsa, sanash
-        if (typeof obj[k] === "object" && obj[k] !== null) {
-            count += countOccurrences(obj[k], key); // Rekursiya: ichki obyekt ichida qidaramiz
-        }
-    }
-
-    return count;
+function findIntersection(arr1: number[], arr2: number[]): number[] {
+    return arr1.filter(value => arr2.includes(value));
 }
 
-// 🔥 Test qilamiz
-const obj = { model: 'Bugatti', steer: { model: 'HANKOOK', size: 30 } };
-console.log(countOccurrences(obj, "model")); // Output: 2
+console.log(findIntersection([1, 2, 3], [3, 2, 0]));

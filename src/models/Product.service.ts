@@ -6,6 +6,7 @@ import { Message } from "../libs/Error";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import { ProductStatus } from "../libs/enums/product.enum";
 import { T } from "../libs/types/common";
+import { ObjectId } from "mongoose";
 
 class ProductService {
     private readonly productModel;
@@ -22,12 +23,12 @@ class ProductService {
             match.productController = inquiry.productCollection;
 
         if (inquiry.search) {
-            match.productName = {$regex: new RegExp(inquiry.search, "i")};
+            match.productName = {$regex: new RegExp(inquiry.search, "i")}; // "i" => flag hisoblanadi
         }
         
-        const sort: T = inquiry.order === "productPrice" 
-            ? { [inquiry.order]: 1 } // dynamic key ni xosil qilib beradi
-            : { [inquiry.order] : -1 };
+        const sort: T = inquiry.order === "productPrice" // dynamic key ni xosil qilib beradi
+            ? { [inquiry.order]: 1 }        // pastdan yuqoriga
+            : { [inquiry.order] : -1 };     // qolgan ihtiyoriy yuqoridan pastga
 
         
         const result = await  this.productModel
@@ -43,6 +44,24 @@ class ProductService {
 
         return result;
     }
+
+    public async getProduct( memberId: ObjectId | null, id: string ): Promise<Product> {
+        const productId = shapeIntoMongooseObjectId(id);
+        
+        let result = await this.productModel
+            .findOne({
+                _id: productId, 
+                productStatus: ProductStatus.PROCESS,
+            })
+            .exec();
+
+        if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+        // TODO: If authenticated users => first => view log creation
+        return result;
+    }
+
+
 
     /* SSR */
     public async getAllProducts(): Promise<Product[]> {

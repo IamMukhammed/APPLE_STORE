@@ -1,4 +1,5 @@
 import Errors, { HttpCode } from "../libs/Error";
+// import { ProductCollection } from "./../../../../../..//src/libs/enums/product.enum";
 import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
 import { memoryStorage } from "multer";
@@ -27,7 +28,7 @@ class ProductService {
         
         const match: T = {productStatus: ProductStatus.PROCESS};
         if (inquiry.productCollection) 
-            match.productController = inquiry.productCollection;
+            match.ProductCollection = inquiry.productCollection;
 
         if (inquiry.search) {
             match.productName = {$regex: new RegExp(inquiry.search, "i")}; // "i" => flag hisoblanadi
@@ -42,7 +43,7 @@ class ProductService {
             .aggregate([
                 {$match: match},
                 {$sort: sort},
-                {$skip: (inquiry.page * 1 - 1) * inquiry.limit},    // 0
+                {$skip: (inquiry.page * 1 -1) * inquiry.limit},    // 0
                 {$limit: inquiry.limit * 1},                        // 3
             ])
             .exec();

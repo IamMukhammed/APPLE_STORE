@@ -24,35 +24,33 @@ class ProductService {
 
     /* SPA */
     public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
-        console.log("inquiry:", inquiry);
-        
-        const match: T = {productStatus: ProductStatus.PROCESS};
-        if (inquiry.productCollection) 
+        const match: T = { productStatus: ProductStatus.PROCESS };
+
+        if (inquiry.productCollection)
             match.productCollection = inquiry.productCollection;
-
+        // Search
         if (inquiry.search) {
-            match.productName = {$regex: new RegExp(inquiry.search, "i")}; // "i" => flag hisoblanadi
+            match.productName = { $regex: new RegExp(inquiry.search, "i") };
         }
-        
-        const sort: T = inquiry.order === "productPrice" // dynamic key ni xosil qilib beradi
-            ? { [inquiry.order]: 1 }        // pastdan yuqoriga
-            : { [inquiry.order] : -1 };     // qolgan ihtiyoriy yuqoridan pastga
 
-        
-        const result = await  this.productModel
-            .aggregate([
-                {$match: match},
-                {$sort: sort},
-                {$skip: (inquiry.page * 1 -1) * inquiry.limit},    // 0
-                {$limit: inquiry.limit * 1},                        // 3
-            ])
-            .exec();
-        
+        const sort: T = 
+        inquiry.order === "productPrice"    
+            ? { [inquiry.order]: 1 }  // eng arzonidan yuqoriga qarab (asc)
+            : { [inquiry.order]: -1 }; // "createdAt qilsak" eng oxirgi qo'shilganidan pastga qarab (desc)
+
+        const result = await this.productModel.aggregate([
+            // pipe lines
+            { $match: match },
+            { $sort: sort },
+            { $skip: (inquiry.page * 1 -1) * inquiry.limit }, // 0 xechqanday malumotni o'tkazib yuborma
+            { $limit: inquiry.limit * 1 }, // 3 ta doc.
+        ])
+        .exec();
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
         return result;
     }
-
+    
     public async getProduct( memberId: ObjectId | null, id: string ): Promise<Product> {
         const productId = shapeIntoMongooseObjectId(id);
         
@@ -73,15 +71,15 @@ class ProductService {
                 viewRefId: productId,
                 viewGroup: ViewGroup.PRODUCT,
             };
-            const existView = await this.viewService.checkViewExistence(input);
 
+            const existView = await this.viewService.checkViewExistence(input);
             console.log("exist:", !!existView);
 
             // Insert New View Log
             if (!existView) {
                 console.log("PLANNING TO INSERT NEW VIEW");
                 await this.viewService.insertMemberView(input);
-            
+
             // increase Traget View (Counts)
             result = await this.productModel
                 .findByIdAndUpdate(
@@ -129,6 +127,6 @@ class ProductService {
         console.log("result:", result);
         return result;
     }
-}
+};
 
 export default ProductService;

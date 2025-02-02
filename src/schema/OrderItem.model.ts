@@ -23,7 +23,7 @@ const orderItemSchema = new Schema(
         },
 
     }, 
-    { timestamps: true}
+    { timestamps: true }
 );
 
 export default mongoose.model("OrderItem", orderItemSchema);

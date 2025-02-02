@@ -1,4 +1,4 @@
-export enum Orderstatus {
+export enum OrderStatus {
     PAUSE = "PAUSE",
     PROCESS = "PROCESS",
     FINISH = "FINISH",

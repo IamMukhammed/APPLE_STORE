@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { Orderstatus } from "../libs/enums/order.enum";
+import { OrderStatus } from "../libs/enums/order.enum";
 
 const orderSchema = new Schema(
     {
@@ -15,7 +15,8 @@ const orderSchema = new Schema(
 
         orderStatus: {
             type: String,
-            enum: Orderstatus.PAUSE,
+            enum: OrderStatus,
+            default: OrderStatus.PAUSE,
         },
 
         memberId: {
@@ -24,7 +25,7 @@ const orderSchema = new Schema(
             ref: "Member",
         },
     }, 
-    { timestamps: true, collection: "orderItems" }
+    { timestamps: true, collection: "orders" }
 );
 
 export default mongoose.model("Order", orderSchema);

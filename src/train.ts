@@ -37,11 +37,12 @@ cookies
     Database validation
 */
 
-function sumEvens(numbers: number[]): number {
-    return numbers
-        .filter(num => num % 2 === 0) // Faqat juft sonlarni ajratib olamiz
-        .reduce((sum, num) => sum + num, 0); // Ularning yig‘indisini hisoblaymiz
+type Person = { age: number };
+
+function sortByAge(people: Person[]): Person[] {
+    return people.sort((a, b) => a.age - b.age);
 }
 
-console.log(sumEvens([1, 2, 3]));
-console.log(sumEvens([1, 2, 3, 2]));
+// Sinov:
+console.log(sortByAge([{ age: 23 }, { age: 21 }, { age: 13 }]));
+// Natija: [{ age: 13 }, { age: 21 }, { age: 23 }]

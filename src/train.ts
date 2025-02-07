@@ -37,12 +37,9 @@ cookies
     Database validation
 */
 
-type Person = { age: number };
-
-function sortByAge(people: Person[]): Person[] {
-    return people.sort((a, b) => a.age - b.age);
+function celsiusToFahrenheit(celsius: number): number {
+    return (celsius * 9/5) + 32;
 }
 
-// Sinov:
-console.log(sortByAge([{ age: 23 }, { age: 21 }, { age: 13 }]));
-// Natija: [{ age: 13 }, { age: 21 }, { age: 23 }]
+console.log(celsiusToFahrenheit(0));  // 32
+console.log(celsiusToFahrenheit(10)); // 50

@@ -8,11 +8,13 @@ export interface Product {
     productName: string;
     productPrice: number;
     productLeftCount: number;
-    productSize?: ProductSize;
-    productVolume?: number;
+    productSize: ProductSize;
+    productVolume: number;
     productDesc?: string;
-    productImages?: string[];
-    productViewa?: number;
+    productImages: string[];
+    productViewa: number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface ProductInquiry {
@@ -24,7 +26,7 @@ export interface ProductInquiry {
 }
 
 export interface ProductInput {
-    productStatus: ProductStatus;
+    productStatus?: ProductStatus;
     productCollection: ProductCollection;
     productName: string;
     productPrice: number;

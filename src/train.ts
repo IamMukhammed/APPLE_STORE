@@ -37,9 +37,15 @@ cookies
     Database validation
 */
 
-function celsiusToFahrenheit(celsius: number): number {
-    return (celsius * 9/5) + 32;
+function changeNumberInArray(index: number, arr: number[], newValue: number): number[] {
+    if (index < 0 || index >= arr.length) {
+        throw new Error("Index is out of bounds");
+    }
+
+    const newArr = [...arr]; 
+    newArr[index] = newValue;
+
+    return newArr;
 }
 
-console.log(celsiusToFahrenheit(0));  // 32
-console.log(celsiusToFahrenheit(10)); // 50
+console.log(changeNumberInArray(1, [1, 3, 7, 2], 2));

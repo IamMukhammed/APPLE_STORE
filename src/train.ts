@@ -37,15 +37,10 @@ cookies
     Database validation
 */
 
-function changeNumberInArray(index: number, arr: number[], newValue: number): number[] {
-    if (index < 0 || index >= arr.length) {
-        throw new Error("Index is out of bounds");
-    }
-
-    const newArr = [...arr]; 
-    newArr[index] = newValue;
-
-    return newArr;
+function removeDuplicate(str: string): string {
+    return Array.from(new Set(str)).join('');
 }
 
-console.log(changeNumberInArray(1, [1, 3, 7, 2], 2));
+console.log(removeDuplicate('stringg'));
+console.log(removeDuplicate('helloo'));
+console.log(removeDuplicate('banana'));

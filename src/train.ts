@@ -37,10 +37,11 @@ cookies
     Database validation
 */
 
-function removeDuplicate(str: string): string {
-    return Array.from(new Set(str)).join('');
+function capitalizeWords(str: string): string {
+    return str
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 }
 
-console.log(removeDuplicate('stringg'));
-console.log(removeDuplicate('helloo'));
-console.log(removeDuplicate('banana'));
+console.log(capitalizeWords('name should be a string')); 

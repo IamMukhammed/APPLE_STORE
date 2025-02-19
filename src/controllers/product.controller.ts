@@ -66,6 +66,8 @@ productController.getProducts = async (req: Request, res: Response) => {
     }
 };
 
+
+
 productController.getProduct = async ( req: ExtendedRequest, res: Response ) => {
     try {
         

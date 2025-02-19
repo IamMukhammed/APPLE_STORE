@@ -19,7 +19,6 @@ const memberController: T = {};
 memberController.getRestaurant = async (req: Request, res: Response) => {
     try {
         console.log("getRestaurant");
-
         const result = await memberService.getRestaurant();
 
         res.status(HttpCode.OK).json(result);
@@ -38,15 +37,12 @@ memberController.signup = async (req: Request, res: Response) => {
         console.log("signup");
         const input: MemberInput = req.body,
             result: Member = await memberService.signup(input);
-            const token = await authService.createToken(result);    // TODO: Tokens authentication
-            console.log("token:", token);
+        const token = await authService.createToken(result);    // TODO: Tokens authentication
 
-            res.cookie(
-                "accessToken", token, {
-                    maxAge: AUTH_TIMER * 3600 * 1000, 
-                    httpOnly: false
-                }
-            );
+        res.cookie("accessToken", token, {
+            maxAge: AUTH_TIMER * 3600 * 1000, 
+            httpOnly: false,
+        });
 
         res.status(HttpCode.CREATED).json({ member: result, accessToken: token });
     } catch (err) {

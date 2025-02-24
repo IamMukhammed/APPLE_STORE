@@ -38,20 +38,24 @@ class ProductService {
                 ? { [inquiry.order]: 1 }  // eng arzonidan yuqoriga qarab (asc)
                 : { [inquiry.order]: -1 }; // "createdAt qilsak" eng oxirgi qo'shilganidan pastga qarab (desc)
 
-        const result = await this.productModel.aggregate([
-            // pipe lines
-            { $match: match },
-            { $sort: sort },
-            { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, // 0 xechqanday malumotni o'tkazib yuborma
-            { $limit: inquiry.limit }, // 3 ta doc.
-        ])
-        .exec();
+        const result = await this.productModel
+            .aggregate([
+                // pipe lines
+                { $match: match },
+                { $sort: sort },
+                { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, // 0 xechqanday malumotni o'tkazib yuborma
+                { $limit: inquiry.limit * 1 }, // 3 ta doc.
+            ])
+            .exec();
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
         return result;
     }
 
-    public async getProduct( memberId: ObjectId | null, id: string ): Promise<Product> {
+    public async getProduct( 
+        memberId: ObjectId | null, 
+        id: string 
+    ): Promise<Product> {
         const productId = shapeIntoMongooseObjectId(id);
         
         let result = await this.productModel
@@ -80,7 +84,7 @@ class ProductService {
                 console.log("PLANNING TO INSERT NEW VIEW");
                 await this.viewService.insertMemberView(input);
 
-            // increase Traget View (Counts)
+            // increase Target View (Counts)
             result = await this.productModel
                 .findByIdAndUpdate(
                     productId, 

@@ -12,32 +12,10 @@ const productController: T = {};
 
 /* SPA */
 
-// productController.getProducts = async (req: Request, res: Response) => {
-//     try {
-//         console.log("getProducts");
-//         const { page, limit, order, productCollection, search } = req.query;
-//         const inquiry: ProductInquiry = {
-//             order: String(order),
-//             page: Number(page),
-//             limit: Number(limit),
-//         };
-//         if (productCollection) {
-//             inquiry.productCollection = productCollection as ProductCollection;
-//         }
-//         if (search) inquiry.search = String(search);
-
-//         const result = await productService.getProducts(inquiry);
-//         console.log("result => ", result);
-
-//         res.status(HttpCode.OK).json(result);
-//     } catch (err) {
-//         console.log("Error, getProducts:", err);
-//         if (err instanceof Errors) res.status(err.code).json(err);
-//         else res.status(Errors.standard.code).json(Errors.standard);
-//     }
-// };
-
-productController.getProducts = async (req: Request, res: Response) => {
+productController.getProducts = async (
+    req: Request, 
+    res: Response
+) => {
     try {
         console.log("getProducts API chaqirildi!");
         console.log("Query params:");
@@ -91,7 +69,6 @@ productController.getAllProducts = async (req: Request, res: Response) => {
     try {
         console.log("getAllProducts");
         const data = await productService.getAllProducts();
-        console.log("products", data);
 
         res.render("products", { products: data });
     } catch (err) {
@@ -101,7 +78,10 @@ productController.getAllProducts = async (req: Request, res: Response) => {
     }
 };
 
-productController.createNewProduct = async (req: AdminRequest, res: Response) => {
+productController.createNewProduct = async (
+    req: AdminRequest, 
+    res: Response
+) => {
     try {
         console.log("createNewProduct");
         console.log("req.files:", req.files);

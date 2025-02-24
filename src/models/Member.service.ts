@@ -16,7 +16,7 @@ class MemberService {
 
     public async getRestaurant(): Promise<Member> {
         const result = await this.memberModel
-            .findOne({ memberTyoe: MemberType.RESTAURANT })
+            .findOne({ memberType: MemberType.RESTAURANT })
             .lean()
             .exec();
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
@@ -46,7 +46,8 @@ class MemberService {
                     memberStatus: { $ne: MemberStatus.DELETE }, 
                 },
                 { memberNick: 1, memberPassword: 1, memberStatus: 1 },
-        ).exec();
+            )
+            .exec();
         if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
         else if(member.memberStatus === MemberStatus.BLOCK) {
             throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
@@ -57,7 +58,7 @@ class MemberService {
             member.memberPassword
         );
         
-        if(!isMatch) {
+        if (!isMatch) {
             throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
         }
 
@@ -74,12 +75,15 @@ class MemberService {
         return result;
     }
 
-    public async updateMember(member: Member, input: MemberUpdateInput): Promise<Member> {
+    public async updateMember(
+        member: Member, 
+        input: MemberUpdateInput
+    ): Promise<Member> {
         const memberId = shapeIntoMongooseObjectId(member._id);
         const result = await this.memberModel
             .findByIdAndUpdate({_id: memberId}, input, {new: true})
             .exec();
-        if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.UPDATE_FAILED);
+        if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
         return result;
     }
@@ -88,7 +92,10 @@ class MemberService {
         const result = await this.memberModel.find({
             memberStatus: MemberStatus.ACTIVE, 
             memberPoints: {$gte: 1},
-        }).sort({ memberPoints: 'desc' }).limit(4).exec();
+        })
+        .sort({ memberPoints: -1 })
+        .limit(4)
+        .exec();
 
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
@@ -111,19 +118,26 @@ class MemberService {
 
     /** SSR */
 
-    // public async signup(input: MemberInput): Promise<Member> {
-    //     const salt = await bcrypt.genSalt(); // hashing qilishni amalga oshirish  salt qilish yani tuzlash orqali
-    //     input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
+    public async processSignup(input: MemberInput): Promise<Member> {
+        const exist = await this.memberModel
+            .findOne({memberType: MemberType.RESTAURANT})
+            .exec();
 
-    //     try {
-    //         const result = await this.memberModel.create(input);
-    //         result.memberPassword = "";
-    //         return result.toJSON();
-    //     }   catch (err) {
-    //         console.log("Error, model:signup", err);
-    //         throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
-    //     }
-    // }
+
+        if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+
+            const salt = await bcrypt.genSalt();
+            input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
+
+      try {
+            const result = await this.memberModel.create(input);
+            result.memberPassword = "";
+            console.log('inout',result);
+            return result;
+        } catch (err) {
+            throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+        }
+    }
 
     public async getUsers(): Promise<Member[]> {
         const result = await this.memberModel
@@ -144,9 +158,6 @@ class MemberService {
         return result;
     }
 }
-
-
-
 
 export default MemberService;
 

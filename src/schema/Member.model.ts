@@ -16,7 +16,7 @@ const memberSchema = new Schema({
         default: MemberStatus.ACTIVE
     },
 
-    memberNick: {
+    memberName: {
         type: String,
         index: { unique: true, sparse: true },
         required: true

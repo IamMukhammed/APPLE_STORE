@@ -1,52 +1,53 @@
 import express from "express";
 const routerAdmin = express.Router();
-import restaurantController from "./controllers/restaurant.controller";
+
 import productController from "./controllers/product.controller";
 import makeUploader from "./libs/utils/uploader";
+import sellerController from "./controllers/seller.controller";
 
-// Restaurant
-routerAdmin.get("/", restaurantController.goHome);
+// SELLLER
+routerAdmin.get("/", sellerController.goHome);
 routerAdmin
-    .get("/login", restaurantController.getLogin)
-    .post("/login", restaurantController.processLogin);
+    .get("/login", sellerController.getLogin)
+    .post("/login", sellerController.processLogin);
 routerAdmin
-    .get("/signup", restaurantController.getSignup)
+    .get("/signup", sellerController.getSignup)
     .post("/signup",
         makeUploader("members").single("memberImage"),
-        restaurantController.processSignup
+        sellerController.processSignup
     );
-routerAdmin.get("/logout", restaurantController.logout);
-routerAdmin.get("/check-me", restaurantController.checkAuthSession);
+routerAdmin.get("/logout", sellerController.logout);
+routerAdmin.get("/check-me", sellerController.checkAuthSession);
 
 // Product
 routerAdmin.get(
     "/product/all",
-    restaurantController.verifyRestaurant,
+    sellerController.verifySeller,
     productController.getAllProducts
 );
 routerAdmin.post(
     "/product/create",
-    restaurantController.verifyRestaurant,
+    sellerController.verifySeller,
     makeUploader("products").array("productImages", 5),
     productController.createNewProduct
 );
 routerAdmin.post(
     "/product/:id",
-    restaurantController.verifyRestaurant,
+    sellerController.verifySeller,
     productController.updateChosenProduct
 );
 
 // User
 routerAdmin.get(
     "/user/all", 
-    restaurantController.verifyRestaurant, 
-    restaurantController.getUsers
+    sellerController.verifySeller, 
+    sellerController.getUsers
 );
 
 routerAdmin.post(
     "/user/edit", 
-    restaurantController.verifyRestaurant, 
-    restaurantController.updateChosenUser
+    sellerController.verifySeller, 
+    sellerController.updateChosenUser
 );
 
 export default routerAdmin;

@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+
 import memberController from "./controllers/member.controller";
 import uploader from "./libs/utils/uploader";
 import productController from "./controllers/product.controller";
@@ -7,7 +8,7 @@ import orderController from "./controllers/order.controller";
 
 
 /* MEMBERS */
-router.get("/member/restaurant", memberController.getRestaurant);
+router.get("/member/seller", memberController.getSeller);
 router.post("/member/login", memberController.login);
 router.post("/member/signup", memberController.signup);
 router.post("/member/logout", 

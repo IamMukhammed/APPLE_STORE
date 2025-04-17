@@ -14,9 +14,9 @@ class MemberService {
     
     /** SPA */
 
-    public async getRestaurant(): Promise<Member> {
+    public async getSeller(): Promise<Member> {
         const result = await this.memberModel
-            .findOne({ memberType: MemberType.RESTAURANT })
+            .findOne({ memberType: MemberType.SELLER })
             .lean()
             .exec();
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
@@ -42,13 +42,13 @@ class MemberService {
         const member = await this.memberModel
             .findOne(
                 { 
-                    memberNick: input.memberNick, 
+                    memberName: input.memberName, 
                     memberStatus: { $ne: MemberStatus.DELETE }, 
                 },
-                { memberNick: 1, memberPassword: 1, memberStatus: 1 },
+                { memberName: 1, memberPassword: 1, memberStatus: 1 },
             )
             .exec();
-        if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+        if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NAME);
         else if(member.memberStatus === MemberStatus.BLOCK) {
             throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
         }
@@ -120,7 +120,7 @@ class MemberService {
 
     public async processSignup(input: MemberInput): Promise<Member> {
         const exist = await this.memberModel
-            .findOne({memberType: MemberType.RESTAURANT})
+            .findOne({memberType: MemberType.SELLER})
             .exec();
 
 

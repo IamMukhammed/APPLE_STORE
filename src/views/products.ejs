@@ -25,11 +25,11 @@
       </ul>
     </div>
 
-    <div class="restaurant-menu-frame">
+    <div class="apple-store-products-frame">
       <div class="board">
-        <div class="dishes-table">
-          <span class="new-dish-txt" style="margin-bottom: 30px">
-            RESTAURANT MENU
+        <div class="products-table">
+          <span class="new-product-txt" style="margin-bottom: 30px">
+            SELLER PRODUCTS
           </span>
           <table class="table table-bordered table-hover">
             <thead class="thead-light">
@@ -37,8 +37,9 @@
                 <th scope="col">T/r</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Product Type</th>
-                <th scope="col">Product Volume</th>
+                <th scope="col">Product Storage</th>
                 <th scope="col">Product Price</th>
+                <th scope="col">Product Color</th>
                 <th scope="col">Product Left Count</th>
                 <th scope="col">Status</th>
               </tr>
@@ -48,16 +49,16 @@
               <tbody style="background: white">
                 <td> <%= key + 1 %> </td>
                 <td> <%= value.productName %> </td>
-                <td> <%= value.productCollection %> </td>
-                <td> <%= value.productCollection === 'DRINK' ? value.producVolume :
-                  value.productSize %> </td>
+                <td> <%= value.productCategory %> </td>
+                <td> <%= value.productCategory === 'SMARTPHONE' ? value.productStorage :
+                  value.productColor %> </td>
                 <td> <%= value.productPrice %> </td>
                 <td> <%= value.productLeftCount %> </td>
                 <td>
                   <select class="spec-select new-product-status" id="<%= value._id %>">
-                    <option value="PAUSE" <%= value.productStatus === 'PAUSE' ? 'selected': '' %> >PAUSE</option>
-                    <option value="PROCESS"  <%= value.productStatus === 'PROCESS' ? 'selected': '' %> >PROCESS</option>
-                    <option value="DELETE"  <%= value.productStatus === 'DELETE' ? 'selected': '' %> >DELETE</option>
+                    <option value="AVAILABLE" <%= value.productStatus === 'AVAILABLE' ? 'selected': '' %> >AVAILABLE</option>
+                    <option value="OUT_OF_STOCK"  <%= value.productStatus === 'OUT_OF_STOCK' ? 'selected': '' %> >OUT_OF_STOCK</option>
+                    <option value="DISCONTINUED"  <%= value.productStatus === 'DISCONTINUED' ? 'selected': '' %> >DISCONTINUED</option>
                   </select>
                 </td>
               </tbody>
@@ -78,11 +79,11 @@
         onsubmit="return validateForm()"
           action="/admin/product/create"
           method="POST"
-          class="dish-container"
+          class="product-container"
           enctype="multipart/form-data"
         >
           <div class="long-input" style="display: flex; align-items: center">
-            <span class="new-dish-txt">NEW PRODUCT DETAIL</span>
+            <span class="new-product-txt">NEW PRODUCT DETAIL</span>
           </div>
           <div class="login-input-frame">
             <div class="long-input">
@@ -96,7 +97,7 @@
             </div>
             <input
               name="productStatus"
-              value="PAUSE"
+              value="AVAILABLE"
               class="product-status"
               hidden
             />
@@ -123,34 +124,55 @@
           </div>
           <div class="half-input-frame">
             <div class="half-input">
+              <label>Product Color</label>
+              <select class="product-color" name="productColor">
+                <option value="BLACK" selected>BLACK</option>
+                <option value="WHITE">WHITE</option>
+                <option value="SILVER">SILVER</option>
+                <option value="GOLD">GOLD</option>
+                <option value="BLUE">BLUE</option>
+                <option value="RED">RED</option>
+                <option value="YELLOW">YELLOW</option>
+                <option value="PURPLE">PURPLE</option>
+                <option value="OTHER">OTHER</option>
+              </select>
+            </div>
+            <div class="half-input">
               <label>Product Type</label>
-              <select class="product-collection" name="productCollection">
-                <option value="DISH" selected>Dish</option>
-                <option value="SALAD">Salad</option>
-                <option value="DESSERT">Dessert</option>
-                <option value="DRINK">Drink</option>
+              <select class="product-collection" name="productCategory">
+                <option value="SMARTPHONE" selected>Smartphone</option>
+                <option value="LAPTOP">Laptop</option>
+                <option value="TABLET">Tablet</option>
+                <option value="ACCESSORY">Accessory</option>
                 <option value="OTHER">Other</option>
               </select>
             </div>
 
             <div class="half-input" id="product-collection">
-              <label>Dish Volume</label>
-              <select class="product-size" name="productSize">
-                <option value="SMALL">Small</option>
-                <option value="NORMAL" selected>Normal</option>
-                <option value="LARGE">Large</option>
-                <option value="SET">Set</option>
+              <label>Product Storage</label>
+              <select class="product-storage" name="productStorage">
+                <option value="GB_64">64GB</option>
+                <option value="GB_128" selected>128GB</option>
+                <option value="GB_256">256GB</option>
+                <option value="GB_512">512GB</option>
+                <option value="TB_1">1TB</option>
+                <option value="TB_2">2TB</option>
+                <option value="OTHER">OTHER</option>
               </select>
             </div>
 
-            <div class="half-input" id="product-volume" style="display: none">
-              <label>Drink Volume</label>
-              <select class="product-volume" name="productVolume">
-                <option value="0.5">0,5 liters</option>
-                <option value="1" selected>1 liters</option>
-                <option value="1.2">1,2 liters</option>
-                <option value="1.5">1,5 liters</option>
-                <option value="2">2 liters</option>
+            <div class="half-input" id="product-color" style="display: none">
+              <label>Product Color</label>
+              <select class="product-color" name="productColor">
+                <option value="BLACK">BLACK</option>
+                <option value="WHITE" selected>WHITE</option>
+                <option value="SILVER">SILVER</option>
+                <option value="GOLD">GOLD</option>
+                <option value="BLUE">BLUE</option>
+                <option value="RED">RED</option>
+                <option value="YELLOW">YELLOW</option>
+                <option value="PURPLE">PURPLE</option>
+                <option value="OTHER">OTHER</option>
               </select>
             </div>
           </div>
@@ -213,7 +235,7 @@
                   onchange="previewFileHandler( this, 5 )"
                 />
               </div>
-              <input name="restaurantIid" class="restaurant-id" hidden />
+              <input name="sellerId" class="seller-id" hidden />
             </div>
           </div>
 

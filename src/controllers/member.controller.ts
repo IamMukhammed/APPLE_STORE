@@ -1,6 +1,6 @@
 import MemberService from "../models/Member.service";
-import { T, test } from "../libs/types/common";
-import express, {NextFunction, Request, response, Response} from "express";
+import { T } from "../libs/types/common";
+import {NextFunction, Request, Response} from "express";
 import { ExtendedRequest, LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Error";
 import AuthService from "../models/Auth.service";
@@ -14,16 +14,16 @@ const authService = new AuthService();
 const memberController: T = {};
 
 
-/* RESTAURANT page */
+/* SELLER page */
 
-memberController.getRestaurant = async (req: Request, res: Response) => {
+memberController.getSeller = async (req: Request, res: Response) => {
     try {
-        console.log("getRestaurant");
-        const result = await memberService.getRestaurant();
+        console.log("getSeller");
+        const result = await memberService.getSeller();
 
         res.status(HttpCode.OK).json(result);
     } catch (err) {
-        console.log("Error, getRestaurant:", err);
+        console.log("Error, getSeller:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standard.code).json(Errors.standard);
     }

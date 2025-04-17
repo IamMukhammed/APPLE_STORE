@@ -1,38 +1,41 @@
 import { ObjectId } from "mongoose";
-import { ProductCollection, ProductSize, ProductStatus } from "../enums/product.enum";
-
+import { ProductStatus, ProductCategory, ProductStorage, ProductColor } from '../enums/product.enum';
+  
 export interface Product {
     _id: ObjectId;
-    productStatus: ProductStatus;
-    productCollection: ProductCollection;
     productName: string;
+    productBrand: string;
+    productCategory: ProductCategory;
     productPrice: number;
+    // productCountInStock: number;
     productLeftCount: number;
-    productSize: ProductSize;
-    productVolume: number;
+    productStatus: ProductStatus;
+    productStorage: ProductStorage;
+    productColor: ProductColor;
     productDesc?: string;
-    productImages: string[];
-    productViewa: number;
+    productImages: string[];       // Mahsulot rasmlari
+    productViews?: number;         // Optional
     createdAt: Date;
     updatedAt: Date;
 }
 
 export interface ProductInquiry {
-    order: string;
+    order: string;                  // "asc" | "desc" yoki field nomi
     page: number;
     limit: number;
-    productCollection?: ProductCollection;
+    productCategory: ProductCategory;
     search?: string;
 }
 
 export interface ProductInput {
     productStatus?: ProductStatus;
-    productCollection: ProductCollection;
+    productCategory: ProductCategory;
     productName: string;
     productPrice: number;
+    // productCountInStock: number;
     productLeftCount: number;
-    productSize?: ProductSize;
-    productVolume?: number;
+    productColor?: ProductColor;
+    productStorage?: number;
     productDesc?: string;
     productImages?: string[];
     productViewa?: number;
@@ -41,12 +44,12 @@ export interface ProductInput {
 export interface ProductUpdateInput {
     _id: ObjectId;
     productStatus?: ProductStatus;
-    productCollection?: ProductCollection;
+    productCategory: ProductCategory;
     productName?: string;
     productPrice?: number;
-    productLeftCount?: number;
-    productSize?: ProductSize;
-    productVolume?: number;
+    productCountInStock?: number;
+    productColor?: ProductColor;
+    productStorag?: number;
     productDesc?: string;
     productImages?: string[];
     productViewa?: number;

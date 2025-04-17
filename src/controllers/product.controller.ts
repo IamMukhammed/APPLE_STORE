@@ -4,14 +4,15 @@ import { T } from "../libs/types/common";
 import ProductService from "../models/Product.service";
 import { ProductInput, ProductInquiry } from "../libs/types/product";
 import { AdminRequest, ExtendedRequest } from "../libs/types/member";
-import { ProductCollection } from "../libs/enums/product.enum";
+import { ProductCategory } from "../libs/enums/product.enum";
+import { shapeIntoMongooseObjectId } from "../libs/config";
 
 const productService = new ProductService();
 
 const productController: T = {};
 
 /* SPA */
-
+/* GET PRODUCTS */
 productController.getProducts = async (
     req: Request, 
     res: Response
@@ -20,15 +21,17 @@ productController.getProducts = async (
         console.log("getProducts API chaqirildi!");
         console.log("Query params:");
 
-        const { page, limit, order, productCollection, search } = req.query;
+        const { page, limit, order, productCategory, search } = req.query;
         const inquiry: ProductInquiry = {
             order: String(order),
             page: Number(page),
             limit: Number(limit),
+            search: "",
+            productCategory: ProductCategory.SMARTPHONE
         };
 
-        if (productCollection) {
-            inquiry.productCollection = productCollection as ProductCollection;
+        if (productCategory) {
+            inquiry.productCategory = productCategory as ProductCategory.SMARTPHONE;
         }
         if (search) inquiry.search = String(search);
 
@@ -45,7 +48,7 @@ productController.getProducts = async (
 };
 
 
-
+/* GET PRODUCT */
 productController.getProduct = async ( req: ExtendedRequest, res: Response ) => {
     try {
         
@@ -63,8 +66,9 @@ productController.getProduct = async ( req: ExtendedRequest, res: Response ) => 
     }
 };
 
-/* SSR */
 
+/* SSR */
+/* GET ALL PRODUCTS */
 productController.getAllProducts = async (req: Request, res: Response) => {
     try {
         console.log("getAllProducts");
@@ -78,25 +82,35 @@ productController.getAllProducts = async (req: Request, res: Response) => {
     }
 };
 
+
+/* CREATE NEW PRODUCT */
 productController.createNewProduct = async (
     req: AdminRequest, 
     res: Response
 ) => {
+    const body = JSON.parse(JSON.stringify(req.body));
+
+    console.log("💡 Parsed Body:", body);
+    console.log("✅ productCategory:", body.productCategory);
+    console.log("✅ productStorage:", body.productStorage);
+
     try {
         console.log("createNewProduct");
         console.log("req.files:", req.files);
         console.log("req.body:", req.body);
 
-        if (!req.files?.length)
+        if (!req.files?.length) {
             throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
-        
-        const data: ProductInput = req.body;
-        
-        data.productImages = req.files?.map(ele => {
-            return ele.path.replace(/\\/g, "/");
-        });
+        }
+
+        const data: ProductInput = {
+            ...body,
+            productCategory: body.productCategory,
+            productImages: req.files.map((ele: any) => ele.path.replace(/\\/g, "/"))
+        };
 
         await productService.createNewProduct(data);
+
         res.send(
             `<script> alert("Successful creation"); window.location.replace('/admin/product/all'); </script>`
         );
@@ -107,9 +121,11 @@ productController.createNewProduct = async (
         res.send(
             `<script> alert("${message}"); window.location.replace('/admin/product/all'); </script>`
         );
-    };
+    }
 };
 
+
+/* UPDATE CHOSEN PRODUCT */
 productController.updateChosenProduct = async (req: Request, res: Response) => {
     try {
         console.log("updateChosenProduct");

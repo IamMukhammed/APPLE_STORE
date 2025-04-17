@@ -1,5 +1,5 @@
 import Errors, { HttpCode } from "../libs/Error";
-// import { ProductCollection } from "./../../../../../..//src/libs/enums/product.enum";
+import { ProductCategory } from "../libs/enums/product.enum";
 import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
 import { memoryStorage } from "multer";
@@ -23,11 +23,12 @@ class ProductService {
     }
 
     /* SPA */
+    /* GET PRODUCTS */
     public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
-        const match: T = { productStatus: ProductStatus.PROCESS };
+        const match: T = { productStatus: ProductStatus.AVAILABLE };
 
-        if (inquiry.productCollection)
-            match.productCollection = inquiry.productCollection;
+        if (inquiry.productCategory)
+            match.productCategory = inquiry.productCategory;
         // Search
         if (inquiry.search) {
             match.productName = { $regex: new RegExp(inquiry.search, "i") };
@@ -38,6 +39,9 @@ class ProductService {
                 ? { [inquiry.order]: 1 }  // eng arzonidan yuqoriga qarab (asc)
                 : { [inquiry.order]: -1 }; // "createdAt qilsak" eng oxirgi qo'shilganidan pastga qarab (desc)
 
+        // const page = inquiry.page ?? 1;
+        // const limit = inquiry.limit ?? 10;
+
         const result = await this.productModel
             .aggregate([
                 // pipe lines
@@ -47,21 +51,24 @@ class ProductService {
                 { $limit: inquiry.limit * 1 }, // 3 ta doc.
             ])
             .exec();
+        // if (inquiry.countInStock === 1) { match.productLeftCount = { $gt: 0 }; };
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
         return result;
     }
 
+
+    /* GET PRODUCT */
     public async getProduct( 
         memberId: ObjectId | null, 
-        id: string 
+        id: string,
     ): Promise<Product> {
         const productId = shapeIntoMongooseObjectId(id);
         
         let result = await this.productModel
             .findOne({
                 _id: productId, 
-                productStatus: ProductStatus.PROCESS,
+                productStatus: ProductStatus.AVAILABLE,
             })
             .exec();
 
@@ -101,6 +108,7 @@ class ProductService {
 
 
     /* SSR */
+    /* GET ALL PRODUCTS */
     public async getAllProducts(): Promise<Product[]> {
         const result = await this.productModel.find().exec();
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
@@ -108,15 +116,45 @@ class ProductService {
         return result;
     }
 
+
+    /* CREATE NEW PRODUCT */
+    // public async createNewProduct(input: ProductInput): Promise<Product> {
+    //     try {
+    //         return await this.productModel.create(input);
+    //     } catch (err) {
+    //         console.error("Error, model: createNewProduct:", err);
+    //         throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+    //     }
+    // }
+    
     public async createNewProduct(input: ProductInput): Promise<Product> {
         try {
-            return await this.productModel.create(input);
-        } catch (err) {
+            const storageMap: Record<string, string> = {
+                GB_64: "64GB",
+                GB_128: "128GB",
+                GB_256: "256GB",
+                GB_512: "512GB",
+                T_1: "1T",
+                T_2: "2T"
+            };
+      
+            const key = input.productStorage as unknown as keyof typeof storageMap;
+      
+            const sanitizedInput = {
+                ...input,
+                productStorage: storageMap[key] || input.productStorage
+            };
+      
+            return await this.productModel.create(sanitizedInput);
+      
+        } catch (err: any) {
             console.error("Error, model: createNewProduct:", err);
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
         }
     }
 
+
+    /* UPDATE CHOSEN PRODUCT */
     public async updateChosenProduct(
         id: string,
         input: ProductUpdateInput

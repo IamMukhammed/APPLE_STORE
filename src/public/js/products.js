@@ -13,12 +13,12 @@ $(function() {
     });
 
     $("#process-btn").on("click", () => {
-        $(".dish-container").slideToggle(500);
+        $(".product-container").slideToggle(500);
         $("#process-btn").css("display", "none");
     });
 
     $("#cancel-btn").on("click", () => {
-        $(".dish-container").slideToggle(100);
+        $(".product-container").slideToggle(100);
         $("#cancel-btn").css("display", "flex");
     });
 
@@ -46,7 +46,7 @@ function validateForm() {
     const productName = $(".product-name").val(),
         productPrice = $(".product-price").val(),
         productLeftCount = $(".product-left-count").val(),
-        productCollection = $(".product-collection").val(),
+        productCategory = $(".product-category").val(),
         productDesc = $(".product-desc").val(),
         productStatus = $(".product-status").val();
 
@@ -54,7 +54,7 @@ function validateForm() {
         productName === "" || 
         productPrice === "" || 
         productLeftCount === "" ||
-        productCollection === "" ||
+        productCategory === "" ||
         productDesc === "" ||
         productStatus === ""
     ) {

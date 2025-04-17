@@ -30,7 +30,7 @@
           <a class="nav-link active" href="/admin/">Home</a>
         </li>
         <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link" href="/admin/product/all">Menu</a>
+          <a class="nav-link" href="/admin/product/all">Products</a>
         </li>
         <li class="nav-item" style="cursor: pointer">
           <a class="nav-link" href="/admin/user/all">Users</a>
@@ -64,13 +64,13 @@
             <% users.map(function(value, index) { %>
               <tbody style="background: white">
                 <td><%= index + 1 %></td>
-                <td><%= value.memberNick %></td>
+                <td><%= value.memberName %></td>
                 <td><%= value.memberPhone %></td>
                 <td style="width: 13%">
                   <select class="spec-select member-status" id="<%= value._id %>">
-                    <option value="ACTIVE" <%= value.memberStatus === 'ACTIVE' ? 'selected': '' %> >ACTIVE</option>
-                    <option value="BLOCK" <%= value.memberStatus === 'BLOCK' ? 'selected': '' %> >BLOCK</option>
-                    <option value="DELETE" <%= value.memberStatus === 'DELETE' ? 'selected': '' %> >DELETE</option>
+                    <option value="AVAILABLE" <%= value.productStatus === 'AVAILABLE' ? 'selected': '' %> >AVAILABLE</option>
+                    <option value="OUT_OF_STOCK"  <%= value.productStatus === 'OUT_OF_STOCK' ? 'selected': '' %> >OUT_OF_STOCK</option>
+                    <option value="DISCONTINUED"  <%= value.productStatus === 'DISCONTINUED' ? 'selected': '' %> >DISCONTINUED</option>
                   </select>
                 </td>
               </tbody>

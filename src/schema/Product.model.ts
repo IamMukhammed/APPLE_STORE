@@ -1,8 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-import productController from "../controllers/product.controller";
-import { ProductVolume } from "../libs/enums/product.enum";
-import { ProductSize } from "../libs/enums/product.enum";
-import { ProductCollection } from "../libs/enums/product.enum";
+import { ProductColor } from "../libs/enums/product.enum";
+import { ProductStorage } from "../libs/enums/product.enum";
+import { ProductCategory } from "../libs/enums/product.enum";
 import { ProductStatus } from "../libs/enums/product.enum";
 
 const productSchema = new Schema(
@@ -10,12 +9,12 @@ const productSchema = new Schema(
         productStatus: {
             type: String,
             enum: ProductStatus,
-            default: ProductStatus.PAUSE,
+            default: ProductStatus.AVAILABLE,
         },
         
-        productCollection: {
+        productCategory: {
             type: String,
-            enum: ProductCollection,
+            enum: ProductCategory,
             required: true,
         },
 
@@ -34,16 +33,19 @@ const productSchema = new Schema(
             required: true,
         },
 
-        productSize: {
+        productStorage: {
             type: String,
-            enum: ProductSize,
-            default: ProductSize.NORMAL,
+            enum: ProductStorage,
+            // enum: ["64GB", "128GB", "256GB", "512GB", "1T", "2T"],
+            // default: ProductStorage.GB_64,
+            required: true,
         },
 
-        ProductVolume: {
-            type: Number,
-            enum: ProductVolume,
-            default: ProductVolume.ONE,
+        productColor: {
+            type: [String],
+            enum: ProductColor,
+            // default: ProductColor.WHITE,
+            required: true,
         },
 
         productDesc: {
@@ -64,7 +66,7 @@ const productSchema = new Schema(
 );
 
 productSchema.index(
-    { productName: 1, productSize: 1, },
+    { productName: 1, productStorage: 1, },
     { unique: true }
 );
 export default mongoose.model("Product", productSchema);

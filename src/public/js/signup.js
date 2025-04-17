@@ -30,13 +30,13 @@ $(function () {
 
 function validateSignupForm() {
     console.log("EXECUTED validateSignupForm()");
-    const memberNick = $(".member-nick").val(),
+    const memberName = $(".member-nick").val(),
         memberPhone = $(".member-phone").val(),
         memberPassword = $(".member-password").val(),
         confirmPassword = $(".confirm-password").val();
 
     if (
-        memberNick === "" ||
+        memberName === "" ||
         memberPhone === "" || 
         memberPassword === "" || 
         confirmPassword === "" 
@@ -55,7 +55,7 @@ function validateSignupForm() {
         : null;
 
     if ( !memberImage ) {
-        alert("Please insert restaurant  image !");
+        alert("Please insert store image !");
         return false;
     }
 }

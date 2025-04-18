@@ -8,11 +8,16 @@ export enum ProductColor {
     RED = "RED",
     YELLOW = "YELLOW",
     PURPLE = "PURPLE",
+    NATURAL_TITANIUM = "NATURAL TITANIUM",
+    BLACK_TITANIUM = "BLACK TITANIUM",
+    GOLD_TITANIUM = "GOLD TITANIUM",
+    WHITE_TITANIUM = "WHITE TITANIUM",
     OTHER = "OTHER",
 }
   
 /* ProductStorage (gigabaytlar uchun) */
 export enum ProductStorage {
+    GB_32 = "32GB",
     GB_64 = "64GB",
     GB_128 = "128GB",
     GB_256 = "256GB",

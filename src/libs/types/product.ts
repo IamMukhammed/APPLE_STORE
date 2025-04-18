@@ -7,7 +7,7 @@ export interface Product {
     productBrand: string;
     productCategory: ProductCategory;
     productPrice: number;
-    // productCountInStock: number;
+    productCountInStock: number;
     productLeftCount: number;
     productStatus: ProductStatus;
     productStorage: ProductStorage;
@@ -24,6 +24,7 @@ export interface ProductInquiry {
     page: number;
     limit: number;
     productCategory: ProductCategory;
+    productCountInStock: number;
     search?: string;
 }
 
@@ -32,7 +33,7 @@ export interface ProductInput {
     productCategory: ProductCategory;
     productName: string;
     productPrice: number;
-    // productCountInStock: number;
+    productCountInStock: number;
     productLeftCount: number;
     productColor?: ProductColor;
     productStorage?: number;
@@ -47,7 +48,7 @@ export interface ProductUpdateInput {
     productCategory: ProductCategory;
     productName?: string;
     productPrice?: number;
-    productCountInStock?: number;
+    productCountInStock: number;
     productColor?: ProductColor;
     productStorag?: number;
     productDesc?: string;

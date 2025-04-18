@@ -29,7 +29,7 @@
       <div class="board">
         <div class="products-table">
           <span class="new-product-txt" style="margin-bottom: 30px" >
-            SELLER PRODUCTS
+            THE SELLER'S PRODUCTS
           </span>
           <table class="table table-bordered table-hover">
             <thead class="thead-light">
@@ -51,8 +51,9 @@
                 <td> <%= value.productName %> </td>
                 <td> <%= value.productCategory %> </td>
                 <td> <%= value.productCategory === 'SMARTPHONE' ? value.productStorage :
-                  value.productColor %> </td>
+                  value.productPrica %> </td>
                 <td> <%= value.productPrice %> </td>
+                <td> <%= value.productColor %> </td>
                 <td> <%= value.productLeftCount %> </td>
                 <td>
                   <select class="spec-select new-product-status" id="<%= value._id %>">
@@ -113,7 +114,7 @@
               />
             </div>
             <div class="half-input">
-              <label>Product Left Counts</label>
+              <label>Stock</label>
               <input
                 type="number"
                 placeholder="Counts"
@@ -126,7 +127,7 @@
             <div class="half-input">
               <label>Product Color</label>
               <select class="product-color" name="productColor">
-                <option value="BLACK" selected>BLACK</option>
+                <option value="BLACK">BLACK</option>
                 <option value="WHITE">WHITE</option>
                 <option value="SILVER">SILVER</option>
                 <option value="GOLD">GOLD</option>
@@ -134,6 +135,10 @@
                 <option value="RED">RED</option>
                 <option value="YELLOW">YELLOW</option>
                 <option value="PURPLE">PURPLE</option>
+                <option value="NATURAL_TITANIUM" selected>NATURAL TITANIUM</option>
+                <option value="BLACK_TITANIUM">BLACK TITANIUM</option>
+                <option value="GOLD_TITANIUM">GOLD TITANIUM</option>
+                <option value="WHITE_TITNAIUM">WHITE TITANIUM</option>
                 <option value="OTHER">OTHER</option>
               </select>
             </div>
@@ -150,6 +155,7 @@
             <div class="half-input" id="product-collection">
               <label>Product Storage</label>
               <select class="product-storage" name="productStorage">
+                <option value="GB_32">32GB</option>
                 <option value="GB_64">64GB</option>
                 <option value="GB_128" selected>128GB</option>
                 <option value="GB_256">256GB</option>
@@ -169,7 +175,7 @@
             <label>Product Images</label>
             <div class="media-frame">
               <div class="upload-img-box">
-                <img src="/img/upload.svg" class="1" id="image-section-1" />
+                <img src="/img/upload.png" class="1" id="image-section-1" />
                 <input
                   type="file"
                   id="file"
@@ -180,7 +186,7 @@
                 />
               </div>
               <div class="upload-img-box">
-                <img src="/img/upload.svg" class="2" id="image-section-2" />
+                <img src="/img/upload.png" class="2" id="image-section-2" />
                 <input
                   type="file"
                   id="file"
@@ -190,7 +196,7 @@
                 />
               </div>
               <div class="upload-img-box">
-                <img src="/img/upload.svg" class="3" id="image-section-3" />
+                <img src="/img/upload.png" class="3" id="image-section-3" />
                 <input
                   type="file"
                   id="file"
@@ -200,7 +206,7 @@
                 />
               </div>
               <div class="upload-img-box">
-                <img src="/img/upload.svg" class="4" id="image-section-4" />
+                <img src="/img/upload.png" class="4" id="image-section-4" />
                 <input
                   type="file"
                   id="file"
@@ -210,7 +216,7 @@
                 />
               </div>
               <div class="upload-img-box">
-                <img src="/img/upload.svg" class="5" id="image-section-5" />
+                <img src="/img/upload.png" class="5" id="image-section-5" />
                 <input
                   type="file"
                   id="file"

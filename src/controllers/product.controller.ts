@@ -19,26 +19,33 @@ productController.getProducts = async (
 ) => {
     try {
         console.log("getProducts API chaqirildi!");
-        console.log("Query params:");
+        console.log("Query params:", req.query);
 
-        const { page, limit, order, productCategory, search } = req.query;
+        const { page, limit, order, productCategory, search, productCountInStock } = req.query;
+
         const inquiry: ProductInquiry = {
             order: String(order),
             page: Number(page),
             limit: Number(limit),
             search: "",
-            productCategory: ProductCategory.SMARTPHONE
+            productCategory: ProductCategory.SMARTPHONE,
+            productCountInStock: 0
         };
 
         if (productCategory) {
-            inquiry.productCategory = productCategory as ProductCategory.SMARTPHONE;
+            inquiry.productCategory = productCategory as ProductCategory;
         }
-        if (search) inquiry.search = String(search);
+        if (search) {
+            inquiry.search = String(search);
+        }
+        if (productCountInStock) {
+            inquiry.productCountInStock = Number(productCountInStock);
+        }
 
-        console.log("Inquiry object:", inquiry); // 🛠 Tekshirish uchun qo‘shildi
+        console.log("Inquiry object:", inquiry);
         const result = await productService.getProducts(inquiry);
         
-        console.log("API javobi:", result); // 🛠 Tekshirish uchun qo‘shildi
+        console.log("API javobi:", result);
         res.status(HttpCode.OK).json(result);
     } catch (err) {
         console.log("Error, getProducts:", err);

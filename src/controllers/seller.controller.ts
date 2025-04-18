@@ -26,7 +26,6 @@ sellerController.getSignup = (req: Request, res: Response) => {
     } catch (err) {
         console.log("Error, getSignup:", err);
         res.redirect("/admin");
-
     }
 };
 

@@ -51,7 +51,7 @@ class ProductService {
                 { $limit: inquiry.limit * 1 }, // 3 ta doc.
             ])
             .exec();
-        // if (inquiry.countInStock === 1) { match.productLeftCount = { $gt: 0 }; };
+        if (inquiry.productCountInStock === 1) { match.productLeftCount = { $gt: 0 }; };
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
         return result;

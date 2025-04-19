@@ -1,7 +1,65 @@
-html,
-body {
+:root {
+  --start-color: #373734;
+  --end-color: #0D0D0C;
+  --text-color: #1a1a1a;
+  --link-color: #000000;
+  --nav-link-color: #e3c08d;
+  --nav-disabled: #898071;
+  --nav-menu: #1a1a1a;
+  --bg-gradient: linear-gradient(-45deg, #ffffff, #ffffff, #f7f7f7, #e3e3e3);
+  --stroke-color: rgba(80, 80, 80, 0.35);
+  --input-bg: #f7f7f7;
+  --input-text: #4f547b;
+  --label-color: #000000;
+  --card-bg: #ffffff;
+}
+
+html.dark-theme {
+  --start-color: #00ffd5;
+  --end-color: #00c3ff;
+  --text-color: #f2f2f2;
+  --link-color: #ffffff;
+  --nav-link-color: #f5c469;
+  --nav-disabled: #5c5c5c;
+  --nav-menu: #f2f2f2;
+  --bg-gradient: linear-gradient(-45deg, #1a1a1a, #2a2a2a, #3a3a3a, #2a2a2a);
+  --stroke-color: rgba(255, 255, 255, 0.15);
+  --input-bg: #1a1a1a;
+  --input-text: #dddddd;
+  --label-color: #ffffff;
+  --card-bg: #1e1e1e;
+}
+
+html, body {
   padding: 0;
   margin: 0;
   height: 100%;
   width: 100%;
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.dark-theme):not(.light-theme) {
+    --start-color: #00ffd5;
+    --end-color: #00c3ff;
+    --text-color: #f2f2f2;
+    --link-color: #ffffff;
+    --nav-link-color: #f5c469;
+    --nav-disabled: #5c5c5c;
+    --nav-menu: #f2f2f2;
+    --bg-gradient: linear-gradient(-45deg, #1a1a1a, #2a2a2a, #3a3a3a, #2a2a2a);
+    --stroke-color: rgba(255, 255, 255, 0.15);
+    --input-bg: #1a1a1a;
+    --input-text: #dddddd;
+    --label-color: #ffffff;
+    --card-bg: #1e1e1e;
+  }
 }

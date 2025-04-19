@@ -32,6 +32,63 @@
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/main.js" defer></script>
   </head>
+
+  <body>
+    <!-- Theme toggle icon -->
+    <div 
+      id="toggle-theme" 
+      style="
+        position: fixed; 
+        top: 15px; 
+        right: 20px; 
+        z-index: 9999; 
+        background: transparent; 
+        border: none; 
+        font-size: 24px; 
+        cursor: pointer;"
+      >
+        🌙
+    </div>
+
+    <!-- THEME TOGGLE SCRIPT -->
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.querySelector("#toggle-theme");
+    
+        if (!toggleBtn) return;
+    
+        // Holatni o‘qish
+        const savedTheme = localStorage.getItem("theme");
+    
+        if (savedTheme === "dark") {
+          document.documentElement.classList.remove("light-theme");
+          document.documentElement.classList.add("dark-theme");
+          toggleBtn.textContent = "☀️";
+        } else {
+          document.documentElement.classList.remove("dark-theme");
+          document.documentElement.classList.add("light-theme");
+          toggleBtn.textContent = "🌙";
+        }
+    
+        // Toggle qilish
+        toggleBtn.addEventListener("click", () => {
+          const isDark = document.documentElement.classList.contains("dark-theme");
+    
+          if (isDark) {
+            document.documentElement.classList.remove("dark-theme");
+            document.documentElement.classList.add("light-theme");
+            toggleBtn.textContent = "🌙";
+            localStorage.setItem("theme", "light");
+          } else {
+            document.documentElement.classList.remove("light-theme");
+            document.documentElement.classList.add("dark-theme");
+            toggleBtn.textContent = "☀️";
+            localStorage.setItem("theme", "dark");
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

@@ -1,3 +1,53 @@
+:root,
+.light-theme {
+  --start-color: #373734;
+  --end-color: #0D0D0C;
+  --text-color: #1a1a1a;
+  --link-color: #000000;
+  --nav-link-color: #e3c08d;
+  --nav-disabled: #898071;
+  --nav-menu: #1a1a1a;
+  --bg-gradient: linear-gradient(-45deg, #ffffff, #ffffff, #f7f7f7, #e3e3e3);
+  --stroke-color: rgba(80, 80, 80, 0.35);
+  --input-bg: #f7f7f7;
+  --input-text: #4f547b;
+  --label-color: #000000;
+  --card-bg: #ffffff;
+}
+
+.dark-theme {
+  --start-color: #00ffd5;
+  --end-color: #00c3ff;
+  --text-color: #f2f2f2;
+  --link-color: #ffffff;
+  --nav-link-color: #f5c469;
+  --nav-disabled: #5c5c5c;
+  --nav-menu: #f2f2f2;
+  --bg-gradient: linear-gradient(-45deg, #1a1a1a, #2a2a2a, #3a3a3a, #2a2a2a);
+  --stroke-color: rgba(255, 255, 255, 0.15);
+  --input-bg: #1a1a1a;
+  --input-text: #dddddd;
+  --label-color: #ffffff;
+  --card-bg: #1e1e1e;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+
 .products-container {
   position: relative;
   width: auto;
@@ -6,29 +56,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(-45deg, #110303bf, #e37813, #011c1aba, #968383);
+  background: var(--bg-gradient);
+  color: var(--text-color);
 }
 
 .products-container a {
   text-decoration: none;
-  color: #000000;
+  color: var(--link-color);
 }
 
 .products-container .nav-item a {
-  color: #e3c08d;
+  color: var(--nav-link-color);
 }
 
 .products-container .nav-item a.disabled {
-  color: #898071;
+  color: var(--nav-disabled);
 }
 
 .products-container .navigation-menu {
   position: absolute;
   z-index: 10000;
   top: 1%;
-  color: #efefee;
   font-size: 40px;
   font-family: monospace;
+  color: var(--nav-menu);
 }
 
 .products-container .store-menu-frame {
@@ -45,7 +96,7 @@
 .products-container .store-menu-frame .board {
   position: relative;
   margin-top: 100px;
-  width: 1320px;
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -60,6 +111,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .products-container .board .product-container {
@@ -72,6 +125,8 @@
   display: none;
   flex-direction: column;
   align-items: center;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .products-container .new-product-txt {
@@ -80,7 +135,8 @@
   font-weight: 400;
   font-size: 30px;
   line-height: 25px;
-  color: #ffffff;
+  padding-top: 15px;
+  color: var(--label-color);
 }
 
 .products-container .long-input {
@@ -98,17 +154,16 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 25px;
-  color: #ffffff;
+  color: var(--label-color);
 }
 
 .products-container .long-input input {
   position: relative;
   margin-top: 10px;
-  padding-left: 20px;
+  padding: 15px 20px;
   width: 100%;
   height: 54px;
   border: none;
-  background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   font-family: "GT Walsheim Pro";
@@ -116,17 +171,17 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 26px;
-  color: #4f547b;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .products-container .long-input textarea {
   position: relative;
   margin-top: 10px;
-  padding: 20px;
+  padding: 15px 20px;
   width: 100%;
   height: 200px;
   border: none;
-  background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   font-family: "GT Walsheim Pro";
@@ -134,13 +189,14 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 26px;
-  color: #4f547b;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .products-container .half-input select {
   position: relative;
   margin-top: 10px;
-  padding: 0px 20px;
+  padding: 15px 20px;
   width: 100%;
   height: 55px;
   margin-bottom: 20px;
@@ -148,15 +204,15 @@
   justify-content: space-between;
 
   border: none;
-  background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-
+  
   font-family: "GT Walsheim Pro";
   font-weight: 400;
   font-size: 15px;
   line-height: 26px;
-  color: #4f547b;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .products-container select:focus {
@@ -212,7 +268,8 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 25px;
-  color: #ffffff;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .products-container .half-input input {
@@ -222,9 +279,10 @@
   width: 100%;
   height: 54px;
   border: none;
-  background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .products-container .media-frame {
@@ -270,7 +328,8 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 25px;
-  color: #ffffff;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .products-container #file {
@@ -296,23 +355,25 @@
 
 .products-container .spec-select {
   position: relative;
-  padding: 0px 7px;
+  padding: 5px 10px;
   height: 27px;
-  background: #ffffff;
-  border: 1px solid #dddddd;
+  border: 1px solid var(--stroke-color);
   border-radius: 8px;
   font-family: "GT Walsheim Pro";
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
   line-height: 26px;
-  color: #4f547b;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 .products-container table td,
 table th {
   text-align: center;
   vertical-align: middle;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .products-container .switch {
@@ -371,5 +432,25 @@ table th {
 }
 
 .products-container .slider.round:before {
+  content: "";
+  position: absolute;
   border-radius: 50%;
+  height: 14px;
+  width: 14px;
+  left: 6px;
+  bottom: 3.5px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+/* Responsive */
+@media (min-width: 500px) {
+  .sphere path {
+    stroke-width: 0.4px;
+  }
+}
+
+.sphere path {
+  stroke: var(--stroke-color);
+  fill: url(#sphereGradient);
 }

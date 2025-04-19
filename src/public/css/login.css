@@ -1,135 +1,118 @@
-.login-container {
-  position: relative;
-  width: 100%;
+:root {
+  --start-color: #373734;
+  --end-color: #0D0D0C;
+  --text-color: #1a1a1a;
+  --link-color: #000000;
+  --bg-input: #f6f5f5;
+  --border-color: #dddddd;
+  --card-bg: #ffffff;
+  --button-bg: #33a0ff;
+  --button-text: #ffffff;
+  --bg-gradient: linear-gradient(-45deg, #ffffff, #ffffff, #f7f7f7, #e3e3e3);
+  --stroke-color: rgba(80, 80, 80, 0.35);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
   height: 100%;
+  width: 100%;
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.login-container {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background: var(--bg-gradient);
   animation: gradient 15s ease infinite;
-  -webkit-animation: gradient 15s ease infinite;
   background-size: 200% 200%;
 }
 
 .login-container a {
+  color: var(--link-color);
   text-decoration: none;
-  color: black;
 }
 
 .login-container .login-frame {
-  position: relative;
-  width: 420px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  background: #ffffff;
+  background: var(--card-bg);
   padding: 25px;
-}
-
-.login-container .login-frame .login-top {
-  position: relative;
-  width: 100%;
-  height: auto;
+  width: 420px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
 }
 
 .login-container .login-top span {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 700;
   font-size: 30px;
   line-height: 34px;
 }
 
-.login-container .login-top p {
-  margin-top: 15px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 26px;
-}
-
+.login-container .login-top p,
 .login-container .login-top div {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
+  margin-top: 15px;
   font-size: 15px;
   line-height: 26px;
 }
 
-.login-container .login-frame .login-input-frame {
-  position: relative;
+.login-container .login-input-frame {
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
 }
 
 .login-container .login-input-container {
-  position: relative;
   margin-top: 15px;
-  width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
 }
 
 .login-container .login-input-container label {
-  margin-bottom: 0px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
   font-size: 16px;
   line-height: 18px;
+  color: var(--text-color);
 }
 
 .login-container .login-input-container input {
-  position: relative;
   margin-top: 10px;
   padding-left: 20px;
-  width: 100%;
   height: 55px;
-  background: #f6f5f5;
-  border: 1px solid #dddddd;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
+  color: var(--text-color);
 }
 
-.login-container .login-frame .login-btn {
-  position: relative;
+.login-container .login-btn {
   margin-top: 25px;
-  width: 100%;
   height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #33a0ff;
+  background: var(--button-bg);
   border-radius: 10px;
-  font-family: "Nunito";
-  font-style: normal;
   font-weight: 800;
   font-size: 24px;
-  line-height: 33px;
+  color: var(--button-text);
   letter-spacing: -0.02em;
-  color: #ffffff;
+  font-family: "Nunito", sans-serif;
 }
 
-/* Background animation */
-@-webkit-keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
+/* 🔄 Background animation */
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -140,4 +123,19 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* 🌙 DARK THEME CLASS */
+html.dark-theme {
+  --start-color: #00ffd5;
+  --end-color: #00c3ff;
+  --text-color: #f2f2f2;
+  --link-color: #ffffff;
+  --bg-input: #1e1e1e;
+  --border-color: #444444;
+  --card-bg: #1a1a1a;
+  --button-bg: #3399ff;
+  --button-text: #ffffff;
+  --bg-gradient: linear-gradient(-45deg, #1a1a1a, #2a2a2a, #3a3a3a, #2a2a2a);
+  --stroke-color: rgba(255, 255, 255, 0.15);
 }

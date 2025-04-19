@@ -3,26 +3,27 @@ console.log("Signup frontend javascript file");
 
 $(function () {
     const fileTarget = $(".file-box .upload-hidden");
-    let filaname;
-
+  
     fileTarget.on("change", function () {
-        if ( window.FileReader ) {
-            const uploadFile = $(this)[0].files[0],
-                fileType = uploadFile["type"],
-                validImageType = ["image/jpg", "image/jpeg", "image/png"];
-
-            if (validImageType.includes(fileType)) {
-                alert("Please insert only jpg, jpeg and png !");
-            } else {
-                if (uploadFile) {
-                    console.log(URL.createObjectURL(uploadFile));
-                    $(".upload-img-frame")
-                    .attr("src", URL.createObjectURL(uploadFile))
-                    ,addClass("Success");
-                }
-                filename = $(this)[0].files[0].name;
+        if (window.FileReader) {
+            const uploadFile = $(this)[0].files[0];
+            const fileType = uploadFile?.type;
+            const validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+  
+            if (!validImageTypes.includes(fileType)) {
+                alert("Only .jpg, .jpeg, and .png formats are allowed!");
+                $(this).val(""); // clear input
+        
+                return;
             }
-            $(this).sibLings(".upload-name").val(filename);   
+  
+            const fileURL = URL.createObjectURL(uploadFile);
+            $(".upload-img-frame")
+            .attr("src", fileURL)
+            .addClass("Success");
+  
+            const filename = uploadFile.name;
+            $(this).siblings(".upload-name").val(filename);
         }
     });
 });

@@ -20,7 +20,7 @@ class OrderService {
     }
 
 
-    /* Create order page */
+    /* CREATE ORDER */
     public async createOrder(
         member: Member, 
         input: OrderItemInput[]
@@ -52,7 +52,7 @@ class OrderService {
     }
 
 
-    /* Record order item page */
+    /* RECORD ORDER ITEM */
     private async recordOrderItem(
         orderId: ObjectId, 
         input: OrderItemInput[]
@@ -71,7 +71,7 @@ class OrderService {
     }
 
 
-    /* Get my orders page */
+    /* GET MY ORDERS */
     public async getMyOrders(member: Member, inquiry: OrderInquiry): Promise<Order[]>
     {
         const memberId = shapeIntoMongooseObjectId(member._id);
@@ -106,7 +106,7 @@ class OrderService {
     }
 
 
-    /* Update order page */
+    /* UPDATE ORDER */
     public async updateOrder(member: Member, input: OrderUpdateInput): Promise<Order> {
         const memberId = shapeIntoMongooseObjectId(member._id);
         const orderId = shapeIntoMongooseObjectId(input.orderId),

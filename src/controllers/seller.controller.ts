@@ -9,6 +9,8 @@ import Errors, { HttpCode, Message } from "../libs/Error";
 const memberService = new MemberService();
 
 const sellerController: T = {};
+
+/* GO HOME */
 sellerController.goHome = (req: Request, res: Response) => {
     try {
         console.log("goHome");
@@ -19,6 +21,8 @@ sellerController.goHome = (req: Request, res: Response) => {
     }
 };
 
+
+/* GET SIGNUP */
 sellerController.getSignup = (req: Request, res: Response) => {
     try {
         console.log("Signup Page");
@@ -29,6 +33,8 @@ sellerController.getSignup = (req: Request, res: Response) => {
     }
 };
 
+
+/* GET LOGIN */
 sellerController.getLogin = (req: Request, res: Response) => {
     try {
         console.log("Login Page");
@@ -40,6 +46,8 @@ sellerController.getLogin = (req: Request, res: Response) => {
     }
 };
 
+
+/* PROCESS SIGNUP */
 sellerController.processSignup = async (
     req: AdminRequest,
     res: Response
@@ -73,6 +81,8 @@ sellerController.processSignup = async (
     }
 };
 
+
+/* PROCESS LOGIN */
 sellerController.processLogin = async (
     req: AdminRequest,
     res: Response
@@ -100,6 +110,8 @@ sellerController.processLogin = async (
     }
 };
 
+
+/* LOGOUT */
 sellerController.logout = async (
     req: AdminRequest,
     res: Response
@@ -115,6 +127,8 @@ sellerController.logout = async (
     }
 };
 
+
+/* GET USERS */
 sellerController.getUsers = async ( req: Request, res: Response ) => {
     try {
         console.log("getUsers");
@@ -128,6 +142,8 @@ sellerController.getUsers = async ( req: Request, res: Response ) => {
     }
 };
 
+
+/* UPDATE CHOSEN USER */
 sellerController.updateChosenUser = async (req: Request, res: Response) => {
     try {
         console.log("updateChosenUser");
@@ -141,6 +157,8 @@ sellerController.updateChosenUser = async (req: Request, res: Response) => {
     }
 };
 
+
+/* CHECK AUTH SESSION */
 sellerController.checkAuthSession = async (
     req: AdminRequest,
     res: Response
@@ -156,6 +174,8 @@ sellerController.checkAuthSession = async (
     }
 };
 
+
+/* VERIFY SELLER */
 sellerController.verifySeller = (
     req: AdminRequest,
     res: Response,

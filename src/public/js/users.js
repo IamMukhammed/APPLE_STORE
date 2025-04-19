@@ -5,7 +5,7 @@ $(function () {
         const id = e.target.id,
             memberStatus = $(`#${id}.member-status`).val();
         
-        // TDOO: Axios updateChosenUser
+        // TODO: Axios updateChosenUser
         // axios.post("/admin/user/edit", {
         //     "_id": "67778cb709707fbde592bd2c",
         //     "memberStatus": "BLOCK"

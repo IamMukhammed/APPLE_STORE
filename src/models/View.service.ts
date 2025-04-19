@@ -10,6 +10,8 @@ class ViewService {
         this.viewModel = ViewModel;
     }
 
+
+    /* CHECK VIEW EXISTENCE */
     public async checkViewExistence(input: ViewInput): Promise<View> {
         return await this.viewModel
             .findOne({
@@ -19,6 +21,8 @@ class ViewService {
             .exec();
     }
 
+
+    /* INSERT MEMBER VIEW */
     public async insertMemberView(input: ViewInput): Promise<View> {
         try {
             return await this.viewModel.create(input);

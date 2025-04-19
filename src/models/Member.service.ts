@@ -42,10 +42,10 @@ class MemberService {
         const member = await this.memberModel
             .findOne(
                 { 
-                    memberName: input.memberName, 
+                    memberNick: input.memberNick, 
                     memberStatus: { $ne: MemberStatus.DELETE }, 
                 },
-                { memberName: 1, memberPassword: 1, memberStatus: 1 },
+                { memberNick: 1, memberPassword: 1, memberStatus: 1 },
             )
             .exec();
         if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NAME);
@@ -64,6 +64,7 @@ class MemberService {
 
         return await this.memberModel.findById(member._id).lean().exec();
     }
+
 
     public async getMemberDetail(member: Member): Promise<Member> {
         const memberId = shapeIntoMongooseObjectId(member._id);

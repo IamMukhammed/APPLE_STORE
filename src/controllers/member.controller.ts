@@ -55,7 +55,6 @@ memberController.signup = async (req: Request, res: Response) => {
 
 
 /* LOG IN page */
-
 memberController.login = async (req: Request, res: Response) => {
     try {
         console.log("login");
@@ -82,7 +81,6 @@ memberController.login = async (req: Request, res: Response) => {
 
 
 /* LOGOUT page */
-
 memberController.logout = ( req: ExtendedRequest, res: Response ) => {
     try {
         console.log("logout");

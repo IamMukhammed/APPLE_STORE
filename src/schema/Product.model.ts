@@ -42,9 +42,9 @@ const productSchema = new Schema(
         },
 
         productColor: {
-            type: [String],
+            type: String,
             enum: ProductColor,
-            // default: ProductColor.WHITE,
+            default: ProductColor.WHITE,
             required: true,
         },
 

@@ -5,7 +5,6 @@ import ProductService from "../models/Product.service";
 import { ProductInput, ProductInquiry } from "../libs/types/product";
 import { AdminRequest, ExtendedRequest } from "../libs/types/member";
 import { ProductCategory } from "../libs/enums/product.enum";
-import { shapeIntoMongooseObjectId } from "../libs/config";
 
 const productService = new ProductService();
 

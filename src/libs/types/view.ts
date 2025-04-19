@@ -3,7 +3,7 @@ import { ViewGroup } from "../enums/view.enum";
 
 export interface View {
     _id: ObjectId;
-    ViewGroup​​: ViewGroup;
+    ViewGroup: ViewGroup;
     memberId: ObjectId;
     viewRefId: ObjectId;
     createdAt: Date;

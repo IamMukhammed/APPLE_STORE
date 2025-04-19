@@ -31,13 +31,13 @@ $(function () {
 
 function validateSignupForm() {
     console.log("EXECUTED validateSignupForm()");
-    const memberName = $(".member-nick").val(),
+    const memberNick = $(".member-nick").val(),
         memberPhone = $(".member-phone").val(),
         memberPassword = $(".member-password").val(),
         confirmPassword = $(".confirm-password").val();
 
     if (
-        memberName === "" ||
+        memberNick === "" ||
         memberPhone === "" || 
         memberPassword === "" || 
         confirmPassword === "" 

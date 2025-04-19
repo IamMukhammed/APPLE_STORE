@@ -166,7 +166,7 @@ sellerController.checkAuthSession = async (
     try {
         console.log("checkAuthSessio");
         if(req.session?.member)
-            res.send(`<script> alert("${req.session.member.memberName}") </script>`);
+            res.send(`<script> alert("${req.session.member.memberNick}") </script>`);
         else res.send(`<script> alert("${Message.NOT_AUTHENTICATED}") </script>`);
     } catch (err) {
         console.log("Error, chechAuthSession:", err);

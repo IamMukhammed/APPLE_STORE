@@ -8,10 +8,9 @@ export interface Member {
     _id: ObjectId;
     memberType: MemberType;
     memberStatus: MemberStatus;
-    memberName: string;
+    memberNick: string;
     memberPhone: number;
     memberPassword?: string;
-    memberEmail: string;
     memberAddress?: string;
     memberDesc?: string;
     memberImage?: string;
@@ -23,10 +22,9 @@ export interface Member {
 export interface MemberInput {
     memberType?: MemberType;
     memberStatus?: MemberStatus;
-    memberName: string;
+    memberNick: string;
     memberPhone: number;
     memberPassword: string;
-    memberEmail: string;
     memberAddress?: string;
     memberDesc?: string;
     memberImage?: string;
@@ -34,9 +32,7 @@ export interface MemberInput {
 }
 
 export interface LoginInput {
-    memberName: unknown;
-    // memberName: string;
-    // memberEmail: string;
+    memberNick: string;
     memberPhone: number;
     memberPassword: string;
 }
@@ -44,10 +40,9 @@ export interface LoginInput {
 export interface MemberUpdateInput {
     _id: ObjectId;
     memberStatus?: MemberService;
-    memberName?: string;
+    memberNick?: string;
     memberPhone?: number;
     memberPassword?: string;
-    memberEmail?: string;
     memberImage?: string;
     memberAddress?: string;
     memberDesc?: string;

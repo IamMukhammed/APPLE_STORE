@@ -28,7 +28,7 @@ productController.getProducts = async (
             limit: Number(limit),
             search: "",
             productCategory: ProductCategory.SMARTPHONE,
-            productCountInStock: 0
+            countInStock: 0
         };
 
         if (productCategory) {
@@ -38,7 +38,7 @@ productController.getProducts = async (
             inquiry.search = String(search);
         }
         if (productCountInStock) {
-            inquiry.productCountInStock = Number(productCountInStock);
+            inquiry.countInStock = Number(productCountInStock);
         }
 
         console.log("Inquiry object:", inquiry);

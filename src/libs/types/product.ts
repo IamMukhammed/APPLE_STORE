@@ -20,12 +20,14 @@ export interface Product {
 }
 
 export interface ProductInquiry {
-    order: string;                  // "asc" | "desc" yoki field nomi
-    page: number;
-    limit: number;
-    productCategory: ProductCategory;
-    productCountInStock: number;
     search?: string;
+    page?: number;
+    limit?: number;
+    order?: string;
+    productCategory?: ProductCategory;
+    productBrands?: string[];
+    productSearch?: string;
+    countInStock?: number;
 }
 
 export interface ProductInput {

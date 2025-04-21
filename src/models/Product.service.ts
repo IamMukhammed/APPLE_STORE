@@ -24,35 +24,42 @@ class ProductService {
     /* SPA */
     /* GET PRODUCTS */
     public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
-        const match: T = { productStatus: ProductStatus.AVAILABLE };
-
-        if (inquiry.productCategory)
-            match.productCategory = inquiry.productCategory;
+        const match: any = { productStatus: ProductStatus.AVAILABLE };
+    
+        // Faqat omborda borlar
+        if (inquiry.countInStock === 1) {
+            match.productLeftCount = { $gt: 0 };
+        }
+    
         // Search
         if (inquiry.search) {
             match.productName = { $regex: new RegExp(inquiry.search, "i") };
         }
-
-        const sort: T = 
-            inquiry.order === "productPrice"    
-                ? { [inquiry.order]: 1 }  // eng arzonidan yuqoriga qarab (asc)
-                : { [inquiry.order]: -1 }; // "createdAt qilsak" eng oxirgi qo'shilganidan pastga qarab (desc)
-
-        // const page = inquiry.page ?? 1;
-        // const limit = inquiry.limit ?? 10;
-
-        const result = await this.productModel
-            .aggregate([
-                // pipe lines
-                { $match: match },
-                { $sort: sort },
-                { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, // 0 xechqanday malumotni o'tkazib yuborma
-                { $limit: inquiry.limit * 1 }, // 3 ta doc.
-            ])
-            .exec();
-        if (inquiry.productCountInStock === 1) { match.productLeftCount = { $gt: 0 }; };
+    
+        // Product category (ALL dan boshqa bo‘lsa)
+        if (inquiry.productCategory) {
+            match.productCategory = inquiry.productCategory;
+        }
+    
+        // Pagination & Sort
+        const page = inquiry.page ?? 1;
+        const limit = inquiry.limit ?? 8;
+        const sortField = inquiry.order ?? "createdAt";
+    
+        const sort: Record<string, 1 | -1 | { $meta: "textScore" }> =
+            sortField === "productPrice"
+                ? { [sortField]: 1 }  // Ascending
+                : { [sortField]: -1 }; // Descending
+    
+        const result = await this.productModel.aggregate([
+            { $match: match },
+            { $sort: sort },
+            { $skip: (page - 1) * limit },
+            { $limit: limit },
+        ]).exec();
+    
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
-
+    
         return result;
     }
 

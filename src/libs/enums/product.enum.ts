@@ -36,11 +36,12 @@ export enum ProductStatus {
   
 /* ProductCategory – eski ProductCollection o‘rniga */
 export enum ProductCategory {
+    // ALL = "ALL",
     SMARTPHONE = "SMARTPHONE",
     LAPTOP = "LAPTOP",
     TABLET = "TABLET",
     ACCESSORY = "ACCESSORY",
-    OTHER = "OTHER",
+    WATCH = "WATCH",
 }
 
 /* ProductColor, ProductStorage, ProductCategory, */

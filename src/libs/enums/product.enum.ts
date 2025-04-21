@@ -8,6 +8,8 @@ export enum ProductColor {
     RED = "RED",
     YELLOW = "YELLOW",
     PURPLE = "PURPLE",
+    PINK = "PINK",
+    GREEN = "GREEN",
     NATURAL_TITANIUM = "NATURAL TITANIUM",
     BLACK_TITANIUM = "BLACK TITANIUM",
     GOLD_TITANIUM = "GOLD TITANIUM",
@@ -22,8 +24,8 @@ export enum ProductStorage {
     GB_128 = "128GB",
     GB_256 = "256GB",
     GB_512 = "512GB",
-    TB_1 = "1TB",
-    TB_2 = "2TB",
+    GB_1024 = "1024GB",
+    GB_2048 = "2048GB",
     OTHER = "OTHER",
 }
   
@@ -42,6 +44,7 @@ export enum ProductCategory {
     TABLET = "TABLET",
     ACCESSORY = "ACCESSORY",
     WATCH = "WATCH",
+    VISION = "VISION",
 }
 
 /* ProductColor, ProductStorage, ProductCategory, */

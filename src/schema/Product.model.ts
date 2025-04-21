@@ -14,7 +14,7 @@ const productSchema = new Schema(
         
         productCategory: {
             type: String,
-            enum: ProductCategory,
+            enum: Object.values(ProductCategory),
             required: true,
         },
 
@@ -35,9 +35,7 @@ const productSchema = new Schema(
 
         productStorage: {
             type: String,
-            enum: ProductStorage,
-            // enum: ["64GB", "128GB", "256GB", "512GB", "1T", "2T"],
-            // default: ProductStorage.GB_64,
+            enum: Object.values(ProductStorage),
             required: true,
         },
 
@@ -65,8 +63,5 @@ const productSchema = new Schema(
     { timestamps: true } //updateAt, createAt
 );
 
-productSchema.index(
-    { productName: 1, productStorage: 1, },
-    { unique: true }
-);
+productSchema.index({ productName: 1, productStorage: 1, });
 export default mongoose.model("Product", productSchema);

@@ -126,33 +126,55 @@ class ProductService {
     /* CREATE NEW PRODUCT */
     // public async createNewProduct(input: ProductInput): Promise<Product> {
     //     try {
-    //         return await this.productModel.create(input);
-    //     } catch (err) {
+    //         const storageMap: Record<string, string> = {
+    //             GB_32: "32GB",
+    //             GB_64: "64GB",
+    //             GB_128: "128GB",
+    //             GB_256: "256GB",
+    //             GB_512: "512GB",
+    //             GB_1024: "1024GB",
+    //             GB_2048: "2048GB",
+    //         };
+      
+    //         const key = input.productStorage as unknown as keyof typeof storageMap;
+      
+    //         const sanitizedInput = {
+    //             ...input,
+    //             productStorage: storageMap[inp.productStorage] || input.productStorage
+    //         };
+      
+    //         return await this.productModel.create(sanitizedInput);
+      
+    //     } catch (err: any) {
     //         console.error("Error, model: createNewProduct:", err);
     //         throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
     //     }
     // }
-    
+
     public async createNewProduct(input: ProductInput): Promise<Product> {
         try {
             const storageMap: Record<string, string> = {
+                GB_32: "32GB",
                 GB_64: "64GB",
                 GB_128: "128GB",
                 GB_256: "256GB",
                 GB_512: "512GB",
-                T_1: "1T",
-                T_2: "2T"
+                GB_1024: "1024GB",
+                GB_2048: "2048GB",
+                OTHER: "OTHER",
             };
-      
-            const key = input.productStorage as unknown as keyof typeof storageMap;
-      
+    
+            // ✅ TypeScript xatosini oldini olamiz
+            const rawStorage = String(input.productStorage ?? "OTHER");
+            const mappedStorage = storageMap[rawStorage] || "OTHER";
+    
             const sanitizedInput = {
                 ...input,
-                productStorage: storageMap[key] || input.productStorage
+                productStorage: mappedStorage,
             };
-      
+    
             return await this.productModel.create(sanitizedInput);
-      
+    
         } catch (err: any) {
             console.error("Error, model: createNewProduct:", err);
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);

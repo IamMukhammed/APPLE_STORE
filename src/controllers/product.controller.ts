@@ -27,7 +27,6 @@ productController.getProducts = async (
             page: Number(page),
             limit: Number(limit),
             search: "",
-            productCategory: ProductCategory.SMARTPHONE,
             countInStock: 0
         };
 

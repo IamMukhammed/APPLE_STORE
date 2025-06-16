@@ -2,51 +2,55 @@ import cors from "cors";
 import express from "express";
 import path from "path";
 import router from "./router";
-import routerAdmin from "./router-admin"
+import routerAdmin from "./router-admin";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import { MORGAN_FORMAT } from "./libs/config";
+import { Server as SocketIOServer } from "socket.io";
+import http from "http";
 import session from "express-session";
 import ConnectMongoDB from "connect-mongodb-session";
 import { T } from "./libs/types/common";
 
 const MongoDBStore = ConnectMongoDB(session);
 const store = new MongoDBStore({
-    uri: String(process.env.MONGO_URL),
-    collection: 'mySessions',
+  uri: String(process.env.MONGO_URL),
+  collection: "mySessions",
 });
 
 // 1 - Entrance
 const app = express();
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static("./uploads"));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ 
-    credentials: true, 
-    origin: true, 
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: true,
+  })
+);
 app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT)); // Midleware design pattern  // lips ni ichidan morgan_formatni chaqirdik
 // app.use(morgan(`:method :url :response-time [:status]`));
 
 // 2 - Sessions
 app.use(
-    session({
-        secret: String(process.env.SESSION_SECRET),
-        cookie: {
-            maxAge: 1000 * 3600 * 3, // 3h
-        },
-        store: store,
-        resave: true,
-        saveUninitialized: true
-    })
+  session({
+    secret: String(process.env.SESSION_SECRET),
+    cookie: {
+      maxAge: 1000 * 3600 * 3, // 3h
+    },
+    store: store,
+    resave: true,
+    saveUninitialized: true,
+  })
 );
 
 app.use(function (req, res, next) {
-    const sessionInstance = req.session as T;
-    res.locals.member = sessionInstance.member;
-    next();
+  const sessionInstance = req.session as T;
+  res.locals.member = sessionInstance.member;
+  next();
 });
 
 // 3 - Views
@@ -56,7 +60,26 @@ app.set("view engine", "ejs");
 // 4 - Routers
 // BSSR => Backend Server Site Rendering //  SSR => Server Site Rendering // EJS
 
-app.use("/admin", routerAdmin);  // SSR: EJS
-app.use("/", router);            // Middleware Design Pattern // SPA: React
+app.use("/admin", routerAdmin); // SSR: EJS
+app.use("/", router); // Middleware Design Pattern // SPA: React
 
-export default app;              // module.exports mantigi bn birxil
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: true,
+    credentials: true,
+  },
+});
+
+let summaryClient = 0;
+io.on("connection", (socket) => {
+  summaryClient++;
+  console.log(`Connection & total [${summaryClient}]`);
+
+  socket.on("Disconnect", () => {
+    summaryClient--;
+    console.log(`Disconnection & total [${summaryClient}]`);
+  });
+});
+
+export default server; // module.exports mantigi bn birxil

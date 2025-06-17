@@ -8,7 +8,7 @@
 - Error handling => loyihamizdagi sodir bolyatgan turli hil errorlarni handling qilish
 */
 
-// API => Aplication Programming Interface 
+// API => Aplication Programming Interface
 
 /* 
 Traditional API ( form POST )
@@ -37,11 +37,16 @@ cookies
     Database validation
 */
 
-function capitalizeWords(str: string): string {
-    return str
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-}
+/*
+PM2 COMMANDS:
 
-console.log(capitalizeWords('name should be a string')); 
+    pm2 ls                                                      => showing list
+    pm2 start dist/server.js --name=Tech_Store                  => starting project
+    pm2 start "npm tun start:prod" --name=Tech_Store            => startting project seccond type
+    pm2 stop 'ID'                                               => stopping project with ID
+    pm2 delete 'ID or NAME'                                     => deleting stopped project with ID or NAME
+    pm2 start 'ID'                                              => starting stopped project
+    pm2 restart 'ID'                                            => restarting
+    pm2 monit                                                   => monitoring already started project
+    pm2 kill                                                    => killing all projects running with pm2 commands
+*/

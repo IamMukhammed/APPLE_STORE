@@ -133,7 +133,7 @@ class MemberService {
       try {
             const result = await this.memberModel.create(input);
             result.memberPassword = "";
-            console.log('inout',result);
+            console.log('input:', result);
             return result;
         } catch (err) {
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);

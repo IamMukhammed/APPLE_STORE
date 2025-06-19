@@ -1,7 +1,7 @@
 :root,
 .light-theme {
   --start-color: #373734;
-  --end-color: #0D0D0C;
+  --end-color: #0d0d0c;
   --text-color: #1a1a1a;
   --link-color: #000000;
   --nav-link-color: #e3c08d;
@@ -31,7 +31,8 @@
   --card-bg: #1e1e1e;
 }
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   height: 100%;
@@ -46,7 +47,6 @@ a {
   color: var(--link-color);
   text-decoration: none;
 }
-
 
 .products-container {
   position: relative;
@@ -206,7 +206,7 @@ a {
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  
+
   font-family: "GT Walsheim Pro";
   font-weight: 400;
   font-size: 15px;

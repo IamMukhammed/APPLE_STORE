@@ -15,7 +15,7 @@ import { T } from "./libs/types/common";
 const MongoDBStore = ConnectMongoDB(session);
 const store = new MongoDBStore({
   uri: String(process.env.MONGO_URL),
-  collection: "mySessions",
+  collection: "sessions",
 });
 
 // 1 - Entrance
@@ -31,15 +31,14 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(morgan(MORGAN_FORMAT)); // Midleware design pattern  // lips ni ichidan morgan_formatni chaqirdik
-// app.use(morgan(`:method :url :response-time [:status]`));
+app.use(morgan(MORGAN_FORMAT));
 
 // 2 - Sessions
 app.use(
   session({
     secret: String(process.env.SESSION_SECRET),
     cookie: {
-      maxAge: 1000 * 3600 * 3, // 3h
+      maxAge: 1000 * 3600 * 3,
     },
     store: store,
     resave: true,
@@ -58,10 +57,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // 4 - Routers
-// BSSR => Backend Server Site Rendering //  SSR => Server Site Rendering // EJS
-
-app.use("/admin", routerAdmin); // SSR: EJS
-app.use("/", router); // Middleware Design Pattern // SPA: React
+app.use("/admin", routerAdmin);
+app.use("/", router);
 
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
@@ -76,10 +73,10 @@ io.on("connection", (socket) => {
   summaryClient++;
   console.log(`Connection & total [${summaryClient}]`);
 
-  socket.on("Disconnection", () => {
+  socket.on("disconnect", () => {
     summaryClient--;
     console.log(`Disconnection & total [${summaryClient}]`);
   });
 });
 
-export default server; // module.exports mantigi bn birxil
+export default server;

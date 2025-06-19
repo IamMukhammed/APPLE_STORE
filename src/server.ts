@@ -1,21 +1,8 @@
-/* Architectural pattern: MVC, DI, MVP. Backend ning suyagi
-    hisoblanib backend dagi malumotlar oqimini tartibga 
-    soladigan  bir vosita ya'ni arxitekturasi
-1. MVC => MODEL VIEW CONTROLLER
-2. DI  => DEPENDECY INJECTION
-3. MVP => MINIMUM VIABLE PRODUCT
-*/
-
-/* Design patter: Middleware, Decorate.  Malum bir bolaklarini
-    yechishda hisoblanadigan qismi.
-*/
-
-// import moment from "moment";  // const moment = require('moment');
-
 import dotenv from "dotenv";
-dotenv.config({
-  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
-});
+// dotenv.config({
+//   path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
+// });
+dotenv.config();
 import mongoose from "mongoose";
 import server from "./app";
 
@@ -30,6 +17,3 @@ mongoose
     });
   })
   .catch((err) => console.log("ERROR on connection MongoDB", err));
-
-// console.log("PORT:", process.env.PORT);
-// console.log("MONGO_URL:", process.env.MONGO_URL);

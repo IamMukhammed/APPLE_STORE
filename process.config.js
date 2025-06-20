@@ -1,10 +1,8 @@
-const { name } = require("ejs");
-
 module.exports = {
   apps: [
     {
-      name: "Apple Tech Store",
-      cwq: "./",
+      name: "Tech-Store",
+      cwd: "./",
       script: "./dist/server.js",
       watch: false,
       env_production: {
@@ -18,9 +16,3 @@ module.exports = {
     },
   ],
 };
-
-/*
-fork & cluster:
-
-
-*/

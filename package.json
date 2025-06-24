@@ -1,7 +1,7 @@
 {
-  "name": "apple-store",
+  "name": "techgrid",
   "version": "1.0.0",
-  "description": "This is apple store project backend",
+  "description": "This is TechGrid project backend",
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",

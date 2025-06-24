@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "Tech-Store",
+      name: "TechGrid",
       cwd: "./",
       script: "./dist/server.js",
       watch: false,
